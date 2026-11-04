@@ -612,3 +612,315 @@ html.is-loading{overflow:hidden}
   .tape-ark{width:240px}
 }
 .pg-ark figcaption{order:-1}
+
+/* сквирлы: все скруглённые блоки получают суперэллипс вместо обычной дуги.
+   Работает в Chrome и Edge 139+, в остальных браузерах остаётся обычное скругление того же радиуса. */
+.tel-pop,.hero-card,.logos div,.lead,.pickbar,.card .ph,.track .card,.track .card .meta,.tier,.book,.ark-col,.fchip,.faq-ark p,.contact .ph,
+.strip li,.split-ph,.cta,.gal a,.gal span,.lb img,.plan,.seat li,.checks li,.fmt-nav a,.fmt-ph,.rule,.route li,.nextp,.pg-ark,
+.field input,.field select,.dur,.progress,.ph-badge,.fb,.mmenu,.steps,.qa{corner-shape:superellipse(2.2)}
+@supports (corner-shape:superellipse(2)){
+  /* суперэллипс визуально «съедает» угол, поэтому радиус чуть больше */
+  .tier,.book,.lead,.split-ph,.fmt-ph,.rule,.route li,.nextp,.pg-ark,.cta,.plan,.contact .ph,.card .ph,.track .card,.gal a:first-child,.hero-card{border-radius:36px}
+  .strip li,.seat li,.checks li,.gal a,.logos div,.faq-ark p{border-radius:22px}
+}
+
+/* ===== бронь: шаг 2 открывается в той же карточке и на десктопе ===== */
+@media (min-width:761px){
+  .book:not(.s2) #st2{display:none}
+  .book.s2 #st2{display:block}
+  .book.s2 #st1{border-bottom:1px solid var(--outline-var);padding-bottom:24px}
+  .book.s2 #st2 .num{display:none}
+  .book #b2,.book #ok{padding-left:0}
+  .book .step-h .step-sum{padding-left:0}
+}
+
+/* ===== внутренние страницы: шапка собрана как карточка брони на главной (колонка Аркадия + текст) ===== */
+.pghead.has-ark{display:block;padding-top:40px}
+.pg-card{display:grid;grid-template-columns:300px minmax(0,1fr);background:var(--surface-low);border-radius:36px;corner-shape:superellipse(2.2);overflow:hidden}
+.pg-card:has(.pg-ark.wide){grid-template-columns:400px minmax(0,1fr)}
+.pg-card .pg-tx{padding:56px;display:grid;gap:20px;align-content:center}
+.pg-card .h-page{font-size:56px;line-height:64px}
+.pg-card .pg-ark{border-radius:0;corner-shape:round;max-width:none;width:auto;justify-self:stretch;display:flex;flex-direction:column;justify-content:space-between;padding:24px 24px 0;gap:16px;min-height:340px}
+.pg-card .pg-ark figcaption{order:0}
+.pg-card .pg-ark .ark{order:1;max-width:220px;margin:0 auto}
+.pg-card .pg-ark.wide .ark{max-width:352px;margin:0 auto 16px}
+main:has(.pghead) .sec{padding-top:96px}
+main:has(.pghead) .sec.first{padding-top:56px}
+.nextp{background:var(--surface-low);color:var(--primary);border:1px solid var(--outline-var)}
+.nextp small{color:var(--on-surface-var);opacity:1}
+.nextp:hover{border-color:var(--primary)}
+@media (max-width:1000px){.pg-card,.pg-card:has(.pg-ark.wide){grid-template-columns:240px minmax(0,1fr)}.pg-card .pg-tx{padding:40px}}
+@media (max-width:760px){
+  .pghead.has-ark{padding-top:20px}
+  .pg-card,.pg-card:has(.pg-ark.wide){grid-template-columns:1fr;border-radius:28px}
+  .pg-card .pg-tx{padding:24px 20px 28px;gap:14px}
+  .pg-card .h-page{font-size:36px;line-height:44px}
+  .pg-card .pg-ark{flex-direction:row;align-items:flex-end;min-height:0;padding:16px 20px 0;gap:12px}
+  .pg-card .pg-ark .ark{order:0;width:96px;margin:0;flex:none}
+  .pg-card .pg-ark figcaption{flex:1;padding-bottom:16px}
+  .pg-card .pg-ark.wide{flex-direction:column;align-items:stretch}
+  .pg-card .pg-ark.wide .ark{order:1;width:100%;max-width:300px;margin:0 auto 8px}
+  .pg-card .pg-ark.wide figcaption{padding-bottom:0}
+  main:has(.pghead) .sec{padding-top:64px}
+  main:has(.pghead) .sec.first{padding-top:40px}
+}
+.pg-card .pg-ark .ark{max-width:180px}
+@media (max-width:760px){.pg-card .pg-ark .ark{width:84px}.pg-card .pg-ark.wide .ark{max-width:240px}}
+
+/* Аркадий: жёсткие размеры во всех браузерах (Сэр видел «на два экрана») */
+svg.ark{max-width:100%;max-height:420px}
+.pg-card .pg-ark{display:grid;align-content:space-between;justify-items:center}
+.pg-card .pg-ark figcaption{justify-self:stretch}
+.pg-card .pg-ark .ark{width:180px!important;height:auto!important;max-height:270px;margin:0}
+.pg-card .pg-ark.wide .ark{width:352px!important;max-height:236px;margin:0 0 16px}
+.tape-ark .ark{width:100%!important;height:auto!important;max-height:214px}
+@media (max-width:760px){
+  .pg-card .pg-ark{grid-template-columns:84px 1fr;align-items:end;justify-items:stretch}
+  .pg-card .pg-ark .ark{width:84px!important;max-height:126px}
+  .pg-card .pg-ark.wide{grid-template-columns:1fr;justify-items:center}
+  .pg-card .pg-ark.wide .ark{width:240px!important;max-height:160px;margin:0 0 8px}
+  .tape-ark .ark{max-height:160px}
+}
+
+/* логотип: совсем немного выразительнее (Сэр): чуть крупнее, лёгкое золотое свечение */
+.logo{color:#fff;--arka-glow:#E3C48F}
+.logo .arka{width:54px;filter:drop-shadow(0 0 8px rgba(201,162,106,.4))}
+@media (max-width:760px){.logo .arka{width:44px}}
+/* «Чертёж» по Material 3 поверх base.css + pages.css */
+/* Макет «Чертёж, мягко»: структура и функции текущего сайта сохранены.
+   Меняется: шрифты, формы (почти прямые углы, без теней), калька с сеткой, открытые строки вместо карточек, 3D как лист альбома. */
+:root{
+  --surface:#F2F1EC;          /* калька */
+  --surface-lowest:#FAF9F6;
+  --surface-low:#F7F6F2;
+  --surface-cont:#E8E6DF;
+  --outline-var:#D3D1C8;
+  --graph:#23272B;
+  --kalka:#F2F1EC;
+  --gridline:rgba(33,54,65,.06);
+  --f-display:"Geologica",system-ui,sans-serif;
+  --f-body:"Golos Text",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"Golos Text",system-ui,sans-serif;  /* моноширинный убран: цифры через tabular-nums */
+  /* сквирклы: радиусы крупнее обычных, superellipse делает углы мягкими, но не «пилюлей» */
+  --r-s:12px;--r-m:16px;--r-l:22px;--r-xl:32px;--r-full:999px;
+  --e1:none;
+}
+body,.site{background:var(--surface)}
+*{box-shadow:none!important;font-variant-numeric:tabular-nums}
+@supports (corner-shape:squircle){*{corner-shape:squircle}}
+@supports not (corner-shape:squircle){:root{--r-s:8px;--r-m:12px;--r-l:16px;--r-xl:24px}}
+
+/* заголовки: узкий чертёжный гротеск вместо тонкого Manrope */
+.h-display{font:600 88px/.95 var(--f-display)!important;letter-spacing:-2px!important}
+.h-display b{font-weight:600!important}
+.h-sec{font-family:var(--f-display)!important;font-weight:500!important;letter-spacing:-1px!important;font-size:48px!important;line-height:1.05!important}
+.t-title{font-family:var(--f-display)!important;font-weight:500!important;font-size:21px!important}
+
+/* первый экран: скетч на кальке с сеткой, карточка = штамп чертежа */
+.hero{background-image:linear-gradient(var(--gridline) 1px,transparent 1px),linear-gradient(90deg,var(--gridline) 1px,transparent 1px);background-size:24px 24px;border-bottom:1.5px solid var(--graph);padding-bottom:56px!important}
+.hero-art img{mix-blend-mode:multiply}
+.hero-card{border:1.5px solid var(--graph);border-radius:var(--r-xl)!important;overflow:hidden;background:var(--surface-lowest)!important;padding:0!important;gap:0!important}
+.hero-card>*{padding-inline:32px}
+.hero-card .h-display{padding-top:20px}
+.hero-card .t-body-l{padding-block:16px 24px}
+.stamp-row{display:flex;justify-content:space-between;border-bottom:1px solid var(--graph);padding-block:10px;font:500 12px/1.3 var(--f-body);text-transform:uppercase;letter-spacing:.08em;color:#5E646A}
+.hero-meta{border-top:1px solid var(--graph);padding-block:12px!important;font-size:14px!important}
+
+
+/* преимущества: открытая строка, крупные цифры, разделители, без иконок */
+.strip{padding-top:56px!important}
+.strip li{display:grid!important;grid-template-columns:1fr!important;gap:6px!important;border-left:1px solid rgba(0,0,0,.12)!important}
+.strip b{font:500 38px/1 var(--f-display)!important;letter-spacing:-1px;color:var(--primary)!important;font-variant-numeric:tabular-nums}
+.strip span{font:400 15px/1.35 var(--f-body)!important;color:var(--on-surface-var)}
+
+/* форматы: подпись и цена под фото */
+.track{grid-auto-rows:310px!important}
+.track .card{display:flex!important;flex-direction:column;background:none!important;border-radius:0!important;overflow:visible!important}
+.track .card .ph{position:relative!important;inset:auto!important;flex:1;min-height:0;border-radius:var(--r-xl)!important;overflow:hidden}
+.track .card .ph img{width:100%;height:100%;object-fit:cover}
+.track .card .meta{position:static!important;background:none!important;padding:10px 0 0!important;max-width:none!important;display:flex!important;justify-content:space-between;align-items:baseline;gap:12px}
+.track .card .meta .t-title{font-size:19px!important}
+.track .card .price,.card .price{font:500 14px/1 var(--f-body)!important;color:var(--on-surface-var);white-space:nowrap}
+
+/* цены: одна таблица с вертикальными линиями */
+.tiers{gap:0!important;border:1.5px solid var(--graph);border-radius:var(--r-xl);overflow:hidden;background:var(--surface-lowest)}
+.tier{border:0!important;border-left:1px solid var(--outline-var)!important;border-radius:0!important;background:none!important;padding:28px 32px!important}
+.tier:first-child{border-left:0!important}
+.tier .p{font:500 52px/1 var(--f-display)!important;letter-spacing:-1px}
+.tier li::before{content:"—";margin-right:8px;color:var(--on-surface-var)}
+
+/* бронь и заявка: та же логика, строже формы */
+.book,.lead{border:1.5px solid var(--graph);background:var(--surface-lowest)!important}
+.book .sum,.book [class*="total"]{font-family:var(--f-display)}
+
+/* 3D как лист альбома */
+#model-s .model-sheet{display:grid;grid-template-columns:1fr 1.25fr;grid-template-rows:auto auto;gap:0;margin-top:48px;border:1.5px solid var(--graph);border-radius:var(--r-xl);overflow:hidden;background-color:var(--kalka);background-image:linear-gradient(var(--gridline) 1px,transparent 1px),linear-gradient(90deg,var(--gridline) 1px,transparent 1px);background-size:20px 20px}
+#model-s figure{margin:0;padding:24px;min-width:0}
+#model-s .m-plan{border-right:1.5px solid var(--graph)}
+#model-s .m-plan svg{display:block;width:100%;height:auto}
+#model-s .m-render img{display:block;border-radius:var(--r-l);width:100%;height:auto;aspect-ratio:16/9;object-fit:cover}
+#model-s figcaption{display:flex;justify-content:space-between;gap:12px;margin-top:10px;font:400 13px/1.4 var(--f-body);color:#5E646A}
+#model-s .m-text{grid-column:1/-1;border-top:1.5px solid var(--graph);padding:20px 24px;display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
+#model-s .m-text p{margin:0;max-width:60ch;font-size:16px}
+
+@media (max-width:760px){
+  .h-display{font-size:60px!important;letter-spacing:-1.5px!important}
+  .h-sec{font-size:34px!important;letter-spacing:-.6px!important}
+  .hero-card>*{padding-inline:20px}
+  .strip{grid-template-columns:1fr 1fr!important;gap:0 20px!important}
+  .strip li{background:none!important;border:0!important;border-top:1px solid rgba(0,0,0,.14)!important;border-radius:0!important;padding:14px 0!important}
+  .strip b{font-size:32px!important}
+  .track{grid-auto-rows:auto!important}
+  .track .card .ph{aspect-ratio:4/3;flex:none}
+  .tier{border-left:0!important;border-top:1px solid var(--outline-var)!important;padding:20px!important}
+  .tier:first-child{border-top:0!important}
+  #model-s .model-sheet{grid-template-columns:1fr}
+  #model-s .m-plan{border-right:0;border-bottom:1.5px solid var(--graph)}
+  #model-s figure{padding:16px}
+  #model-s figcaption{flex-direction:column;gap:0}
+}
+/* на фото фуршета в углу чужая плашка: кадрируем */
+img[src="ph-party.jpg"]{transform:scale(1.3);transform-origin:20% 25%}
+
+/* отзывы: без логотипов, у каждого отзыва формат и дата мероприятия */
+#reviews-s .revs{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:40px;border:1.5px solid var(--graph);border-radius:var(--r-xl);overflow:hidden;background:var(--surface-lowest)}
+#reviews-s .rev{margin:0;padding:28px 32px;border-left:1px solid var(--outline-var);display:flex;flex-direction:column;gap:20px}
+#reviews-s .rev:first-child{border-left:0}
+#reviews-s .rev blockquote{margin:0;font:400 18px/1.5 var(--f-body);color:var(--on-surface)}
+#reviews-s .rev figcaption{margin-top:auto;display:grid;gap:2px;font-size:14px;color:var(--on-surface-var)}
+#reviews-s .rev figcaption b{font-weight:500;color:var(--on-surface)}
+#reviews-s .rev .ev{display:inline-block;align-self:flex-start;font:500 13px/1 var(--f-body);color:var(--primary);background:var(--primary-cont);padding:7px 12px;border-radius:var(--r-full)}
+#reviews-s .sum{margin-top:16px;font-size:14px;color:var(--on-surface-var)}
+@media (max-width:760px){
+  #reviews-s .revs{grid-template-columns:1fr}
+  #reviews-s .rev{border-left:0;border-top:1px solid var(--outline-var);padding:22px 20px}
+  #reviews-s .rev:first-child{border-top:0}
+  #reviews-s .rev blockquote{font-size:16px}
+}
+
+/* пролёт: мягкий возврат к зданию */
+.hero-v{transition:opacity .9s ease!important}
+
+
+/* «Чертёж» по Material 3: та же страница, токены M3.
+   Шрифт Roboto Flex + Roboto, шкала типографики M3, шкала форм M3 (8/12/16/28/full) со сквирклами,
+   кнопки-пилюли 40 dp, чипы 32 dp с радиусом 8, outlined-карточки 1 dp, слои состояний 8/10 %, отступы кратны 8, цели ≥ 48 dp. */
+:root{
+  --f-display:"Roboto Flex","Roboto",system-ui,sans-serif;
+  --f-body:"Roboto",system-ui,-apple-system,"Segoe UI",sans-serif;
+  /* M3 shape scale: extra-small 4, small 8, medium 12, large 16, extra-large 28, full */
+  --r-xs:4px;--r-s:8px;--r-m:12px;--r-l:16px;--r-xl:28px;--r-full:999px;
+  /* M3 color roles поверх палитры бренда */
+  --outline:#74777A;--outline-var:#C9C7C0;
+  --secondary-cont:#DCE7EE;--on-secondary-cont:#0E2430;
+  --state-hover:.08;--state-press:.10;
+}
+@supports not (corner-shape:squircle){:root{--r-s:8px;--r-m:12px;--r-l:16px;--r-xl:28px}}
+
+/* типографика M3 */
+.h-display{font:400 57px/64px var(--f-display)!important;letter-spacing:-.25px!important;font-variation-settings:"opsz" 144}
+.hero-card .h-display{font-size:72px!important;line-height:80px!important;font-weight:500!important}
+.h-display b{font-weight:inherit!important}
+.h-sec{font:400 45px/52px var(--f-display)!important;letter-spacing:0!important;font-variation-settings:"opsz" 96}   /* display small → medium */
+.t-title{font:500 22px/28px var(--f-display)!important}                                                           /* title large */
+.t-body-l{font:400 16px/24px var(--f-body)!important;letter-spacing:.5px}                                       /* body large */
+.t-small{font:400 14px/20px var(--f-body)!important;letter-spacing:.25px}                                       /* body medium */
+.stamp-row{font:500 12px/16px var(--f-body)!important;letter-spacing:.5px!important}                            /* label small */
+
+/* карточки: outlined card M3, обводка 1 dp outline-variant вместо графитовой 1,5 */
+.hero-card,.book,.lead,.tiers,#model-s .model-sheet,#reviews-s .revs{border:1px solid var(--outline-var)!important;border-radius:var(--r-xl)!important}
+.hero-card .stamp-row,.hero-meta,#model-s .m-text{border-color:var(--outline-var)!important}
+#model-s .m-plan{border-right-color:var(--outline-var)!important}
+.hero{border-bottom:0!important}
+.tier .p{font:400 57px/64px var(--f-display)!important;letter-spacing:-.25px!important}
+.strip b{font:400 36px/44px var(--f-display)!important;letter-spacing:0!important}     /* headline large */
+.strip span{font:400 14px/20px var(--f-body)!important;letter-spacing:.25px}
+
+/* кнопки M3: пилюля 40 dp, label large, слой состояния */
+.btn{height:48px!important;padding:0 24px!important;border-radius:var(--r-full)!important;font:500 14px/20px var(--f-body)!important;letter-spacing:.1px!important;position:relative;overflow:hidden}
+.btn::after{content:"";position:absolute;inset:0;background:currentColor;opacity:0;transition:opacity .2s;pointer-events:none;border-radius:inherit}
+.btn:hover::after{opacity:var(--state-hover)}
+.btn:active::after{opacity:var(--state-press)}
+.btn:focus-visible{outline:3px solid var(--primary);outline-offset:2px}
+.btn-text{padding:0 12px!important}
+.icon-btn{width:48px;height:48px;border-radius:var(--r-full)!important}
+
+/* чипы M3 (filter chip): 32 dp, радиус 8, выбранный = secondary container без галочки */
+.fchip{border-radius:var(--r-s)!important;border:1px solid var(--outline)!important;background:transparent!important;font:500 14px/20px var(--f-body)!important;letter-spacing:.1px}
+.fchip:hover{background:rgba(26,31,35,.08)!important}
+.fchip[aria-pressed="true"]{background:var(--secondary-cont)!important;border-color:transparent!important;color:var(--on-secondary-cont)!important}
+.fchip:disabled{border-color:rgba(26,31,35,.12)!important}
+
+/* текстовые поля M3 outlined: 56 dp, радиус 4 */
+.field input,.field select,.field textarea{border-radius:var(--r-xs)!important}
+
+/* форматы: фото с радиусом large 16 (M3 media в карточке) */
+.track .card .ph{border-radius:var(--r-l)!important}
+#model-s .m-render img{border-radius:var(--r-l)!important}
+
+/* отзывы: формат мероприятия как assist chip M3 */
+#reviews-s .rev .ev{background:transparent!important;border:1px solid var(--outline-var);border-radius:var(--r-s)!important;height:32px;display:inline-flex!important;align-items:center;padding:0 16px!important;font:500 14px/20px var(--f-body)!important;color:var(--on-surface)!important}
+#reviews-s .rev blockquote{font:400 16px/24px var(--f-body)!important;letter-spacing:.5px}
+
+/* шапка M3 top app bar: 64 dp */
+.bar .btn{height:40px!important}
+
+/* отступы по сетке 8 dp: между разделами 96, внутри карточек 24 */
+.sec{padding-block:96px 0!important}
+.sec:last-of-type{padding-bottom:96px!important}
+.tier,#reviews-s .rev{padding:24px!important}
+
+@media (max-width:760px){
+  .hero-card .h-display{font-size:45px!important;line-height:52px!important}
+  .h-sec{font-size:32px!important;line-height:40px!important}      /* headline large */
+  .h-display{font-size:45px!important;line-height:52px!important}
+  .strip b{font-size:28px!important;line-height:36px!important}     /* headline medium */
+  .tier .p{font-size:45px!important;line-height:52px!important}
+  .sec{padding-block:64px 0!important}
+  .sec:last-of-type{padding-bottom:64px!important}
+}
+
+/* ---- правки после сравнения до/после (2026-11-04) ---- */
+/* «Полдня» снова подсвечен: колонка с тоном primary-container внутри общей таблицы */
+.tier.hi{background:var(--primary-cont)!important}
+.tier.hi .t-small{color:var(--primary)}
+/* шрифт M3 грузится в 400/500/600: тонкие 300 из старых стилей переводим в 400 */
+.h-page{font:400 57px/64px var(--f-display)!important;letter-spacing:-.25px!important;font-variation-settings:"opsz" 144}
+.h-page b{font-weight:inherit!important}
+.specs dt,.seat em,.fmt-price b,.nextp b{font-family:var(--f-display)!important;font-weight:400!important}
+/* внутренние страницы: карточка шапки и блоки в формах M3 */
+.pg-card{border-radius:var(--r-xl)!important;border:1px solid var(--outline-var)}
+/* иконки в кружках у оснащения и условий убраны, как в полосе на главной */
+.checks .msi,.rule>.msi{display:none!important}
+.fmt-tx li .msi{display:none!important}
+.fmt-tx li::before{content:"—";margin-right:8px;color:var(--on-surface-var)}
+@media (max-width:760px){.h-page{font-size:40px!important;line-height:48px!important}}
+/* таблица тарифов: отступ снаружи рамки, а не внутри (иначе пустая полоса над колонками и «Полдня») */
+.tiers{padding-top:0!important;margin-top:48px}
+@media (max-width:760px){.tiers{margin-top:32px}}
+/* «Что входит в цену» на странице зала: открытый список с линиями вместо карточек с иконками */
+.checks{gap:0 32px!important}
+.checks li{grid-template-columns:1fr!important;gap:4px!important;background:none!important;border-radius:0!important;border-top:1px solid var(--outline-var);padding:16px 0!important}
+.tier li .msi{display:none!important}
+/* телефон: первый экран как в старой версии, без карточки с рамкой: текст сразу под картинкой, бронь выше */
+@media (max-width:760px){
+  .hero-card{border:0!important;border-radius:0!important;background:transparent!important;padding:12px 0 0!important;overflow:visible}
+  .hero-card>*{padding-inline:0!important}
+  .hero-card .h-display{padding-top:8px}
+  .hero-card .t-body-l{padding-block:12px 16px}
+  .stamp-row{border-bottom:0!important;padding-block:0!important;justify-content:flex-start;gap:12px;text-transform:none!important;letter-spacing:.1px!important;font-size:14px!important;color:var(--gold-text)!important}
+  .stamp-row span+span::before{content:"·";margin-right:12px}
+  .hero-meta{border-top:0!important;padding-block:0!important}
+  .hero{padding-bottom:32px!important}
+}
+/* клетка кальки тише (Сэр 2026-11-04: «чутка бесят, но вайб добавляют»): вдвое бледнее и крупнее шаг */
+:root{--gridline:rgba(33,54,65,.028)}
+.hero{background-size:32px 32px!important}
+#model-s .model-sheet{background-size:28px 28px!important}
+/* первый экран по колонке контента (от логотипа до кнопки брони), чтобы картинка не вылезала за край сетки.
+   Скетч и видео сдвигаются одинаково через object-position, поэтому пролёт стартует ровно с кадра скетча */
+@media (min-width:761px){
+  .hero-art{max-width:1152px;width:calc(100% - 48px);margin-inline:auto}
+  .hero-art>img,.hero-v{object-position:62% 65%!important}
+  .hero-card{margin-left:40px}
+}

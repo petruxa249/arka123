@@ -55,14 +55,24 @@
 
   /* видео на первом экране */
   if($('#heroV')){
-  /* видео на первом экране: идёт по кругу, кнопка ставит на паузу */
+  /* видео на первом экране: здание 4 с → пролёт 6 с → снова здание → через 6 с снова пролёт, и так по кругу.
+     Кнопка останавливает цикл и запускает его заново. Если первый экран не виден или вкладка скрыта, следующий пролёт ждёт. */
   {const v=$('#heroV'),pb=$('#flyBtn'),lab=$('#flyLab'),ic=$('#flyIc'),art=$('.hero-art');
    const set=(i,l)=>{ic.textContent=i;lab.textContent=l;pb.setAttribute('aria-label',l)};
    const calm=matchMedia('(prefers-reduced-motion:reduce)').matches;
-   v.addEventListener('playing',()=>{art.classList.add('flying');set('pause','Остановить видео')});
-   v.addEventListener('pause',()=>set('play_arrow','Запустить видео'));
-   pb.onclick=()=>{ if(v.paused) v.play().catch(()=>{}); else v.pause()};
-   if(calm){set('play_arrow','Запустить видео')} else v.play().catch(()=>set('play_arrow','Запустить видео'));}
+   const FIRST=4000, PAUSE=6000;
+   /* видео 1 МБ грузится скриптом: не мешает первой картинке, не качается при экономии трафика, 2G и «меньше движения» */
+   const nc=navigator.connection, slow=!!(nc&&(nc.saveData||/2g/.test(nc.effectiveType||'')));
+   if(!calm&&!slow){v.preload='auto';v.load()}
+   let t=0, stopped=calm||slow, seen=true;
+   new IntersectionObserver(e=>{const was=seen;seen=e[0].isIntersecting;if(seen&&!was&&!stopped&&v.paused&&!art.classList.contains('flying'))plan(1500)},{threshold:.4}).observe(art);
+   const go=()=>{if(stopped)return;if(!seen||document.hidden){plan(1500);return}v.currentTime=0;v.play().catch(()=>{stopped=true;idle()})};
+   const plan=ms=>{clearTimeout(t);t=setTimeout(go,ms)};
+   const idle=()=>set('play_arrow','Пролёт в зал, 6 с');
+   v.addEventListener('playing',()=>{art.classList.add('flying');set('pause','Остановить')});
+   v.addEventListener('ended',()=>{art.classList.remove('flying');idle();plan(PAUSE)});
+   pb.onclick=()=>{ if(v.paused){stopped=false;clearTimeout(t);v.play().catch(()=>{})} else {stopped=true;clearTimeout(t);v.pause();art.classList.remove('flying');idle()} };
+   idle(); if(!stopped) plan(FIRST);}
   }
 
   /* бронь: календарь, два шага и вторая заявка */
@@ -155,7 +165,8 @@
     if(t!==null) $('#sum1').textContent=range()+' · '+price()+' BYN';
     $('#arkSay').textContent=one?'управляющий залом. Держу дату 24 часа без предоплаты.':'Осталось сказать, куда прислать подтверждение.';
     if(!one) setTimeout(()=>$('#f-name').focus({preventScroll:true}),50);
-    if(!isDesk()&&!quiet) requestAnimationFrame(()=>$(one?'#st1':'#st2').scrollIntoView({behavior:'smooth',block:'start'}));
+    $('.book').classList.toggle('s2',!one);
+    if(!quiet){const el=$(one?'#st1':'#st2'), r=el.getBoundingClientRect(); if(r.top<72||r.top>innerHeight*.6) el.scrollIntoView({block:'start'})}
   }
   async function refresh(){A=await api.avail(); renderDays(); if(day&&!starts(day).length){day=null;t=null} if(day){renderTimes(); if(t!==null&&!(starts(day).includes(t)&&maxDur()>=2)){t=null;show('#rvDur',false);$('#pick2').textContent=fmt(day)+', время не выбрано'}else calc()}}
   async function resetBook(){
@@ -165,7 +176,7 @@
     if(isDesk()){ const d=addDays(A.today,0), f=[...Array(14).keys()].map(i=>addDays(A.today,i)).find(x=>starts(x).length); if(f){selectDay(f); selectTime(starts(f)[0])} }
   }
   window.__resetBook=resetBook;
-  $('#next').onclick=()=>{ if(isDesk()){ const L=$('#lead-s'); L.scrollIntoView({behavior:'smooth',block:'start'}); setTimeout(()=>$('#l-name').focus({preventScroll:true}),500);} else step(2); }; $('#edit1').onclick=()=>step(1);
+  $('#next').onclick=()=>step(2); $('#edit1').onclick=()=>step(1);
   const errBox=(form)=>{let e=form.querySelector('.err'); if(!e){e=document.createElement('p');e.className='err';e.setAttribute('role','alert');form.querySelector('.total').before(e)} return e};
   async function submit(form,btn,p,onOk){
     const e=errBox(form); e.textContent='';
@@ -174,13 +185,13 @@
     btn.disabled=true; const old=btn.innerHTML; btn.innerHTML='Отправляем…';
     const r=await api.send(p);
     btn.disabled=false; btn.innerHTML=old;
-    if(!r.ok){e.textContent=r.error; if(p.booking){await refresh(); if(!isDesk()) step(1)} else e.scrollIntoView({block:'center',behavior:'smooth'}); return}
+    if(!r.ok){e.textContent=r.error; if(p.booking){await refresh(); step(1)} else e.scrollIntoView({block:'center',behavior:'smooth'}); return}
     onOk(); refresh();
   }
   const bookingPart=()=>t!==null?{date:day,start:t,dur}:undefined;
   $('#b2').addEventListener('submit',e=>{e.preventDefault(); const btn=e.submitter||$('#b2 button[type=submit]');
     submit($('#b2'),btn,{booking:bookingPart(),name:$('#f-name').value,channel:chan,contact:$('#f-contact').value,format:$('#f-fmt').value,guests:$('#f-guests').value,website:$('#hp1').value},()=>{
-      $('#b2').hidden=true; $('#ok').hidden=false; $('#edit1').hidden=true; requestAnimationFrame(()=>$('#ok').scrollIntoView({behavior:'smooth',block:'center'}));
+      $('#b2').hidden=true; $('#ok').hidden=false; $('#edit1').hidden=true; {const r=$('#ok').getBoundingClientRect(); if(r.top<72||r.bottom>innerHeight) $('#ok').scrollIntoView({block:'center'})}
       $('#okTx').textContent=`Анна ответит ${chan==='звонок'?'звонком':'в '+chan} в течение 15 минут.`;
       $('#arkSay').textContent='Окна к вашему приходу откроем. До встречи на Мстиславца, 10.'})});
   pick($('#chan2'),'c',b=>{$('#l-cl').textContent=b.dataset.l;$('#l-contact').placeholder=b.dataset.p});

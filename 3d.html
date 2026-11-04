@@ -2,13 +2,13 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Roboto:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Flex:wght@500;700;800&family=Roboto:wght@400;500&display=swap">
 <style>
 /* Layout: first screen split — text on the left, the building facade on the right; one window of the facade is the АРКА 123 logo and the entrance to 3D. Single brand look, light only. */
 :root{
   --navy:#213641; --cream:#F3EFE8; --beige:#D8CCBB; --stone:#EAE3D8; --brass:#B8925A;
   --ink:#1B2A33; --muted:#5B6870; --night:#0F171C;
-  --display:"Manrope","Segoe UI",system-ui,sans-serif;
+  --display:"Roboto Flex","Segoe UI",system-ui,sans-serif;
   --body:"Roboto","Segoe UI",system-ui,sans-serif;
   color-scheme:light;
 }
@@ -190,7 +190,7 @@ h1 span{color:var(--brass)}
         <rect class="focusring" x="384" y="625" width="232" height="76" rx="8"/>
         <rect x="390" y="631" width="220" height="64" rx="4" fill="#213641"/>
         <rect x="395" y="636" width="210" height="54" rx="2" fill="none" stroke="#F3EFE8" stroke-width="1.6"/>
-        <text x="440" y="676" text-anchor="middle" font-family="Manrope,sans-serif" font-weight="800" font-size="38" fill="#F3EFE8">10</text>
+        <text x="440" y="676" text-anchor="middle" font-family="Roboto Flex,sans-serif" font-weight="800" font-size="38" fill="#F3EFE8">10</text>
         <line x1="478" y1="644" x2="478" y2="682" stroke="#F3EFE8" stroke-opacity=".5" stroke-width="1.2"/>
         <text x="490" y="657" font-family="Roboto,sans-serif" font-size="11.5" fill="#F3EFE8">ул. Мстиславца</text>
         <text x="490" y="676" font-family="Roboto,sans-serif" font-weight="500" font-size="11" letter-spacing=".6" fill="#D8B987">ВОЙТИ В 3D →</text>
@@ -239,7 +239,7 @@ h1 span{color:var(--brass)}
   </div>
 </section>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="gsap.min.js"></script>
 <script>
 (() => {
   const R = {el:document.getElementById('L-room'), W:1672, H:680, cam:{cx:836, cy:340, w:1}};
