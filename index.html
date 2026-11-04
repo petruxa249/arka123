@@ -9,401 +9,8 @@
 <script>try{if(sessionStorage.getItem("arka_visited")==="1"&&location.hash!=="#intro")document.documentElement.classList.add("arka-skip")}catch(e){}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600&family=Inter:wght@400;500;600&display=swap">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=close,pause,replay,event,account_balance,add,arrow_back,arrow_forward,call,check,check_circle,directions_subway,expand_more,format_quote,groups,local_parking,mail,menu,play_arrow,remove,schedule,send,square_foot,view_in_ar,window&display=block">
-<style>
-/* Макет v9: Material 3 на почти белом. Один акцент (фирменный синий), золото только в «123», знаке и Аркадии.
-   Сайт лежит в контейнере .site; телефонная раскладка включается container query, поэтому вкладка «Телефон» показывает тот же сайт шириной 390 px. */
-:root{
-  /* поверхности M3 (тон нейтральной палитры от синего #213641, чуть тёплые) */
-  --surface:#F5F2EC;            /* фон страницы: тёплый, светлее пергамента v8 */
-  --surface-lowest:#FDFCFA;     /* карточки поверх фона, поля */
-  --surface-low:#FBF9F5;        /* бронь, заявка */
-  --surface-cont:#ECE8E0;       /* подвал */
-  --surface-high:#E4DFD5;
-  --on-surface:#1A1F23;
-  --on-surface-var:#4D565C;
-  --outline:#757D82;
-  --outline-var:#DDD7CC;
-  /* primary = фирменный синий из логотипа */
-  --primary:#213641;
-  --on-primary:#FFFFFF;
-  --primary-cont:#DCE7EE;
-  --on-primary-cont:#0E2430;
-  /* tertiary = матовое золото, только акцент */
-  --gold:#C9A26A;
-  --gold-text:#7A5726;
-  --gold-num:#A8834A;          /* крупные золотые цифры: 3,1:1, проходит для крупного текста */
-  --gold-cont:#F5EAD8;
-  --on-gold-cont:#4A3311;
-  --error:#B3261E;
-  /* для Аркадия */
-  --ink:var(--primary);
-  --gold-art:var(--gold);
-  --f-display:"Manrope",system-ui,sans-serif;
-  --f-body:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
-  /* M3 shape */
-  --r-s:8px; --r-m:12px; --r-l:16px; --r-xl:28px; --r-full:999px;
-  --e1:0 1px 2px rgba(26,31,35,.12),0 1px 3px 1px rgba(26,31,35,.06);
-}
-html,body{overflow-x:clip}
-body{margin:0;background:var(--surface);color:var(--on-surface);font:400 16px/24px var(--f-body);-webkit-font-smoothing:antialiased}
-*{box-sizing:border-box}
-[hidden]{display:none!important}
-.msi{font-family:"Material Symbols Outlined";font-weight:400;font-style:normal;font-size:24px;line-height:1;letter-spacing:normal;text-transform:none;display:inline-block;white-space:nowrap;direction:ltr;-webkit-font-feature-settings:"liga";font-feature-settings:"liga";user-select:none;flex:none}
-button,input,select{font:inherit;color:inherit}
-a{color:inherit}
-:focus-visible{outline:2px solid var(--primary);outline-offset:2px}
-
-/* ===== сайт ===== */
-.site{background:var(--surface)}
-.w{max-width:1200px;margin:0 auto;padding-left:max(24px,env(safe-area-inset-left,0px));padding-right:max(24px,env(safe-area-inset-right,0px))}
-.sec{padding-block:128px 0}
-.sec:last-of-type{padding-bottom:128px}
-.label{font:500 14px/20px var(--f-body);letter-spacing:.1px;color:var(--gold-text)}
-.h-display{font:300 88px/96px var(--f-display);letter-spacing:-2px;margin:0;color:var(--primary)}
-.h-display b{font-weight:300;color:var(--gold-num)}
-.h-sec{font:300 44px/52px var(--f-display);letter-spacing:-1px;margin:0;color:var(--primary);text-wrap:balance}
-.t-title{font:500 22px/28px var(--f-display);margin:0;color:var(--on-surface)}
-.t-body-l{font:400 18px/28px var(--f-body);color:var(--on-surface-var);max-width:56ch;margin:0}
-.t-small{font:400 14px/20px var(--f-body);color:var(--on-surface-var)}
-.head{display:grid;gap:12px;max-width:640px}
-
-/* кнопки M3 */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:48px;padding:0 24px;border-radius:var(--r-full);font:500 15px/20px var(--f-body);letter-spacing:.1px;text-decoration:none;border:0;cursor:pointer;transition:background .2s,box-shadow .2s;white-space:nowrap}
-.btn .msi{font-size:20px}
-.btn-filled{background:var(--primary);color:var(--on-primary)}
-.btn-filled:hover{box-shadow:var(--e1);background:#2C4552}
-.btn-filled:disabled{background:rgba(26,31,35,.12);color:rgba(26,31,35,.38);box-shadow:none;cursor:not-allowed}
-.btn-outlined{border:1px solid var(--outline);color:var(--primary);background:none}
-.btn-outlined:hover{background:rgba(33,54,65,.06)}
-.btn-text{background:none;color:var(--primary);padding:0 12px}
-.btn-text:hover{background:rgba(33,54,65,.06)}
-.btn-gold{background:var(--gold);color:var(--primary);height:40px;padding:0 20px;font-size:14px}
-.icon-btn{width:48px;height:48px;border-radius:50%;border:1px solid var(--outline);background:none;display:grid;place-items:center;cursor:pointer;color:var(--primary)}
-.icon-btn:hover{background:rgba(33,54,65,.06)}
-.icon-btn:disabled{opacity:.38;cursor:default;background:none}
-
-/* app bar */
-.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--primary);color:#fff}
-.bar .w{display:flex;align-items:center;gap:16px;height:68px}
-.logo{display:block;padding:4px 16px 4px 0;margin-right:auto;flex:none}
-.mark{width:32px;height:37px;display:block}
-.nav{display:flex;gap:4px;white-space:nowrap;flex:none}
-.nav a{font:500 14px/20px var(--f-body);text-decoration:none;color:rgba(255,255,255,.82);padding:10px 12px;border-radius:var(--r-full)}
-.nav a:hover{background:rgba(255,255,255,.08);color:#fff}
-.telw{position:relative;flex:none}
-.tel-btn{width:40px;height:40px;border-radius:50%;border:1px solid rgba(255,255,255,.28);background:none;color:#fff;display:grid;place-items:center;cursor:pointer}
-.tel-btn:hover,.tel-btn[aria-expanded="true"]{background:rgba(255,255,255,.1)}
-.tel-btn .msi{font-size:20px}
-.tel-pop{position:absolute;right:0;top:calc(100% + 8px);background:var(--surface-lowest);color:var(--on-surface);border-radius:var(--r-l);box-shadow:0 8px 24px -8px rgba(26,31,35,.3);padding:16px 20px;display:grid;gap:2px;white-space:nowrap;z-index:6}
-.tel-pop b{font:500 18px/24px var(--f-body);font-variant-numeric:tabular-nums}
-.tel-pop span{font:400 13px/18px var(--f-body);color:var(--on-surface-var)}
-.bar .btn-gold{flex:none}
-.burger{display:none;background:none;border:0;color:#fff;width:48px;height:48px;place-items:center;cursor:pointer;margin-right:-12px}
-
-/* hero */
-.hero{position:relative;padding-block:0}
-.hero-art{position:relative;max-width:1600px;margin:0 auto}
-.hero-art img{display:block;width:100%;height:auto;mix-blend-mode:multiply}
-.hero-card{position:relative;margin-top:-260px;z-index:1;width:min(560px,100%);background:var(--surface-lowest);border-radius:var(--r-xl);box-shadow:0 1px 3px rgba(40,32,20,.08),0 16px 40px -16px rgba(40,32,20,.22);padding:40px;display:grid;gap:20px}
-.hero-tx{display:grid;gap:20px}
-.hero-cta{display:flex;gap:12px;flex-wrap:wrap;padding-top:8px}
-.hero-meta{display:flex;gap:8px 24px;flex-wrap:wrap;font:400 14px/20px var(--f-body);color:var(--on-surface-var)}
-.hero-meta b{font-weight:500;color:var(--on-surface)}
-.hero-cta{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
-.fchip[aria-pressed="true"]{border:1px solid var(--primary)}
-#days .fchip{position:relative}
-.hero-cta{display:flex;gap:12px;flex-wrap:wrap}
-/* полоса преимуществ */
-.strip{display:grid;grid-template-columns:repeat(5,1fr);margin:0;padding:72px 0 0;list-style:none}
-.strip li{display:grid;grid-template-columns:28px 1fr;align-content:start;gap:4px 16px;padding:0 24px;border-left:1px solid var(--outline-var);align-items:start}
-.strip li:first-child{border-left:0;padding-left:0}
-.strip .msi{grid-row:span 2;color:var(--primary);font-size:28px;width:28px}
-.strip b{font:500 16px/24px var(--f-body);color:var(--on-surface)}
-.strip span:not(.msi){font:400 14px/20px var(--f-body);color:var(--on-surface-var)}
-/* клиенты */
-.logos{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;padding-top:48px}
-.logos div{height:96px;border-radius:var(--r-l);background:var(--surface-lowest);display:grid;place-items:center;color:#5E676C;font:600 20px/1 var(--f-display);letter-spacing:.5px}
-.logos .l1{letter-spacing:6px;font-weight:600}.logos .l2{font-weight:400}.logos .l2 em{font-style:normal;color:var(--gold)}
-.logos .l3{font-size:12px;letter-spacing:3px;text-transform:uppercase;border:1.5px solid currentColor;padding:6px 10px;text-align:center;line-height:14px}
-.logos .l4{font-size:26px;letter-spacing:-1px}.logos .l5{font-weight:400;font-size:13px;letter-spacing:4px;text-transform:uppercase}
-.logos .l6{font-weight:500}.logos .l7{font-weight:400;font-size:16px;display:flex;gap:8px;align-items:center}.logos .l8{letter-spacing:2px}
-.quote{display:grid;gap:16px;justify-items:center;text-align:center;padding-top:72px;max-width:760px;margin:0 auto}
-.quote .msi{font-size:40px;color:var(--gold)}
-.quote p{margin:0;font:400 28px/38px var(--f-display);color:var(--primary);text-wrap:balance}
-.quote small{font:400 14px/20px var(--f-body);color:var(--on-surface-var)}
-/* вторая заявка */
-.lead{display:grid;grid-template-columns:5fr 7fr;background:var(--surface-low);border-radius:var(--r-xl);margin-top:0;overflow:hidden}
-.lead-in{padding:48px;display:grid;gap:20px;align-content:start;border-right:1px solid var(--outline-var)}
-.lead-in ol{margin:8px 0 0;padding:0;list-style:none;display:grid;gap:14px;counter-reset:s}
-.lead-in li{display:flex;gap:14px;align-items:center;font:400 16px/24px var(--f-body);counter-increment:s}
-.lead-in li::before{content:counter(s);width:28px;height:28px;border-radius:50%;background:var(--surface-high);display:grid;place-items:center;font:500 13px/1 var(--f-body);flex:none}
-.lead-f{padding:48px;display:grid;gap:24px;align-content:start}
-.pickbar{display:flex;justify-content:space-between;align-items:center;gap:16px;background:var(--primary-cont);color:var(--on-primary-cont);border-radius:var(--r-l);padding:12px 12px 12px 20px}
-.pickbar small{display:block;font:400 12px/16px var(--f-body)}
-.pickbar b{font:500 16px/24px var(--f-body)}
-.desk-only{}
-
-/* карусель форматов */
-.car-head{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap}
-.car-nav{display:flex;align-items:center;gap:12px}
-.car-count{font:500 14px/20px var(--f-body);color:var(--on-surface-var);font-variant-numeric:tabular-nums;min-width:44px;text-align:center}
-@media (min-width:761px){
-.track{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));grid-auto-rows:260px;gap:16px;padding-top:48px}
-.track .card{position:relative;display:block;border-radius:var(--r-xl);overflow:hidden;background:var(--surface-cont)}
-.track .card:nth-child(1){grid-column:1/6;grid-row:span 2}
-.track .card:nth-child(2){grid-column:6/9}
-.track .card:nth-child(3){grid-column:9/13}
-.track .card:nth-child(4){grid-column:6/10}
-.track .card:nth-child(5){grid-column:10/13}
-.track .card .ph{position:absolute;inset:0;aspect-ratio:auto;border-radius:0}
-.track .card .meta{position:absolute;left:12px;bottom:12px;right:auto;max-width:calc(100% - 24px);background:var(--surface-lowest);border-radius:var(--r-m);padding:8px 14px;display:grid;gap:0}
-.track .card .meta .t-small{display:none}
-.track .card .price{padding-top:0;font-weight:400;font-size:13px;line-height:18px;color:var(--on-surface-var)}
-.track .card .t-title{font-size:16px;line-height:22px;font-weight:500}
-.track .card:nth-child(1) .t-title{font-size:20px;line-height:28px}
-.track .card .kick{display:block}
-}
-.kick{display:none;font:500 12px/16px var(--f-body);color:var(--gold-text);margin-bottom:2px}
-.car-nav,.progress{display:none!important}
-@media (max-width:760px){.car-nav{display:flex!important}.progress{display:block!important}
-.track{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;padding-block:48px 8px;scrollbar-width:none;overscroll-behavior-x:contain}
-.track .card:first-child{grid-row:auto;display:grid}
-.track .card:first-child .ph{aspect-ratio:4/3}
-.track .card{flex:0 0 84%}}
-.track::-webkit-scrollbar{display:none}
-.card{scroll-snap-align:start;display:grid;gap:16px;text-decoration:none;color:inherit;min-width:0;align-content:start}
-.card .ph{aspect-ratio:4/3;border-radius:var(--r-xl);overflow:hidden;background:var(--surface-cont)}
-.card img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s cubic-bezier(.2,0,0,1)}
-.card:hover img{transform:scale(1.03)}
-.card .meta{display:flex;justify-content:space-between;align-items:start;gap:16px;padding-inline:4px}
-.card .price{font:500 14px/20px var(--f-body);color:var(--primary);white-space:nowrap;padding-top:4px}
-.progress{height:4px;border-radius:2px;background:var(--surface-high);margin-top:32px;overflow:hidden}
-.progress i{display:block;height:100%;width:20%;background:var(--primary);border-radius:2px;transition:transform .3s,width .3s}
-
-/* цены */
-.tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;padding-top:48px}
-.tier{border:1px solid var(--outline-var);border-radius:var(--r-xl);padding:32px;display:grid;gap:8px;align-content:start;background:var(--surface)}
-.tier.hi{background:var(--primary-cont);border-color:transparent}
-.tier .p{font:300 44px/52px var(--f-display);color:var(--primary);font-variant-numeric:tabular-nums;padding-top:8px}
-.tier .p small{font:400 16px/24px var(--f-body);color:var(--on-surface-var)}
-.tier ul{list-style:none;margin:16px 0 0;padding:0;display:grid;gap:10px}
-.tier li{display:flex;gap:10px;font:400 15px/22px var(--f-body);color:var(--on-surface)}
-.tier li .msi{font-size:20px;color:var(--primary)}
-.note{padding-top:24px}
-
-/* бронь */
-.book{display:grid;grid-template-columns:300px 1fr;background:var(--surface-low);border-radius:var(--r-xl);overflow:hidden;margin-top:48px}
-.ark-col{background:var(--gold-cont);display:flex;flex-direction:column;justify-content:space-between;align-items:center;padding:24px 24px 0;gap:16px;position:relative}
-.ark-col .ark{width:100%;max-width:200px;height:auto;display:block;order:2}
-.ark-name{order:1;align-self:stretch;display:grid;gap:4px}
-.ark-name b{font:500 16px/24px var(--f-body);color:var(--on-gold-cont)}
-.ark-name span{font:400 14px/20px var(--f-body);color:var(--on-gold-cont);opacity:.85}
-.ark{display:block;overflow:hidden}
-.a-ink,.a-cloth{fill:var(--ink)}
-.a-mid{fill:var(--ink);opacity:.42}
-.a-gold{fill:var(--gold-art);filter:var(--gf,none);transition:filter 2.4s cubic-bezier(.4,0,.2,1)}
-.a-goldmid{fill:var(--gold-art);opacity:.3}
-.a-fold{fill:var(--gold-art);opacity:var(--fo,0);transition:opacity 2.4s cubic-bezier(.4,0,.2,1)}
-.hov:hover{--fo:.55;--gf:brightness(1.12) saturate(1.15)}
-.steps{padding:40px 48px 48px;display:grid;gap:0}
-.step{border-bottom:1px solid var(--outline-var);padding-block:24px}
-.step:first-child{padding-top:0}
-.step:last-child{border-bottom:0;padding-bottom:0}
-.step-h{display:flex;align-items:center;gap:8px 16px;flex-wrap:wrap}
-.step-h .step-sum{order:5;flex-basis:100%;padding-left:44px}
-.num{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font:500 13px/1 var(--f-body);background:var(--primary);color:#fff;flex:none}
-.step.off .num{background:var(--surface-high);color:var(--on-surface-var)}
-.step.done .num{background:var(--primary-cont);color:var(--on-primary-cont)}
-.step-h .t-title{flex:1;min-width:0}
-.step.off .t-title{color:var(--on-surface-var)}
-.step-sum{font:400 15px/22px var(--f-body);color:var(--on-surface-var)}
-.step-body{display:grid;gap:24px;padding:24px 0 0 44px}
-.grp{display:grid;gap:12px}
-.grp-l{font:500 14px/20px var(--f-body);color:var(--on-surface)}
-.chips{display:flex;flex-wrap:wrap;gap:8px}
-.fchip{height:40px;min-width:48px;padding:0 14px;border-radius:var(--r-s);border:1px solid var(--outline-var);background:var(--surface-lowest);font:500 14px/20px var(--f-body);cursor:pointer;display:inline-flex;align-items:center;gap:6px;justify-content:center;font-variant-numeric:tabular-nums}
-.fchip small{font-weight:400;color:var(--on-surface-var);font-size:12px}
-.fchip:hover{background:#F0F2F3}
-.fchip[aria-pressed="true"]{background:var(--primary-cont);border-color:var(--primary);color:var(--on-primary-cont)}
-.fchip[aria-pressed="true"] small{color:var(--on-primary-cont)}
-#days{gap:8px}
-#days .fchip{flex-direction:column;height:52px;min-width:52px;padding:0 8px;gap:0;font:500 16px/20px var(--f-body);color:var(--on-surface)}
-#days .fchip small{font:400 11px/14px var(--f-body);color:var(--on-surface-var)}
-#days .fchip:disabled{color:rgba(26,31,35,.3);text-decoration:line-through}
-#days .fchip:disabled small{color:rgba(26,31,35,.3);text-decoration:none}
-.fchip:disabled{border-color:transparent;background:transparent;color:rgba(26,31,35,.3);text-decoration:none}
-#days .fchip:disabled small{color:rgba(26,31,35,.3)}
-#days .fchip:disabled::after{content:"занято";font:400 10px/12px var(--f-body)}
-#days .fchip:disabled small{display:none}
-.fchip:disabled{color:rgba(26,31,35,.32);text-decoration:line-through;cursor:not-allowed;background:transparent}
-.dur{display:inline-flex;align-items:center;gap:4px;border:1px solid var(--outline-var);border-radius:var(--r-full);background:var(--surface-lowest);height:40px}
-.dur button{width:40px;height:38px;border:0;background:none;cursor:pointer;display:grid;place-items:center;border-radius:50%}
-.dur button .msi{font-size:20px}
-.dur output{font:500 14px/20px var(--f-body);min-width:64px;text-align:center}
-.row2{display:flex;gap:12px 24px;flex-wrap:wrap;align-items:center}
-.m-only{display:none}
-@media (min-width:761px){#st2{display:none}#st1{border-bottom:0;padding-bottom:0}#st1 .num{display:none}#b1{padding-left:0}}
-@media (max-width:760px){.rv:not(.in){display:none!important}.m-only{display:inline}.d-only{display:none}}
-.rv.in{animation:rise .32s cubic-bezier(.2,0,0,1)}
-@keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-.total{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-top:8px}
-.total b{font:400 28px/36px var(--f-display);color:var(--primary);font-variant-numeric:tabular-nums}
-.total .t-small{display:block}
-.fields{display:grid;grid-template-columns:1fr 1fr;gap:20px 16px}
-.field{position:relative;display:grid}
-.field label{position:absolute;left:12px;top:-9px;padding:0 4px;background:var(--surface-low);font:400 12px/16px var(--f-body);color:var(--on-surface-var)}
-.field input,.field select{height:56px;border:1px solid var(--outline);border-radius:4px;background:transparent;padding:0 16px;font:400 16px/24px var(--f-body);width:100%;min-width:0}
-.field input:focus,.field select:focus{outline:none;border:2px solid var(--primary);padding:0 15px}
-.field input:focus+label,.field:focus-within label{color:var(--primary)}
-.field .sup{font:400 12px/16px var(--f-body);color:var(--on-surface-var);padding:4px 16px 0}
-.field.full{grid-column:1/-1}
-.ok{display:grid;gap:12px;justify-items:start}
-.ok .msi{font-size:40px;color:var(--primary)}
-.legal{font:400 12px/16px var(--f-body);color:var(--on-surface-var)}
-
-/* FAQ */
-.faq{display:grid;grid-template-columns:4fr 8fr;gap:48px;align-items:start}
-.faq-side{display:grid;gap:16px;position:sticky;top:96px}
-.faq-ark{display:grid;grid-template-columns:120px 1fr;gap:16px;align-items:end;padding-top:8px}
-.faq-ark .ark{width:120px;height:auto}
-.faq-ark p{margin:0;background:var(--gold-cont);color:var(--on-gold-cont);border-radius:var(--r-l) var(--r-l) var(--r-l) 4px;padding:14px 16px;display:grid;gap:4px;font:400 14px/20px var(--f-body);margin-bottom:24px}
-.faq-ark b{font-weight:500}
-.qa{border-top:1px solid var(--outline-var)}
-.qa:last-child{border-bottom:1px solid var(--outline-var)}
-.qa summary{list-style:none;display:flex;justify-content:space-between;align-items:center;gap:24px;padding:24px 4px;cursor:pointer;font:500 18px/26px var(--f-body);color:var(--on-surface)}
-.qa summary::-webkit-details-marker{display:none}
-.qa summary .msi{transition:transform .2s;color:var(--on-surface-var)}
-.qa[open] summary .msi{transform:rotate(180deg)}
-.qa p{margin:0;padding:0 48px 24px 4px;font:400 16px/26px var(--f-body);color:var(--on-surface-var);max-width:62ch}
-
-/* контакты */
-.contact{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
-.contact .ph{border-radius:var(--r-xl);overflow:hidden;aspect-ratio:4/3}
-.contact .ph img{width:100%;height:100%;object-fit:cover;display:block}
-.list{list-style:none;margin:24px 0 0;padding:0;display:grid}
-.list li{display:flex;gap:16px;align-items:center;padding:14px 0;border-bottom:1px solid var(--outline-var)}
-.list li:last-child{border-bottom:0}
-.list .msi{color:var(--primary)}
-.list b{display:block;font:500 16px/24px var(--f-body)}
-.list span:not(.msi){font:400 14px/20px var(--f-body);color:var(--on-surface-var)}
-.list .tg{width:24px;height:24px;color:var(--primary)}
-.foot{background:var(--surface-cont);margin-top:128px}
-.foot .w{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-block:32px;font:400 13px/18px var(--f-body);color:var(--on-surface-var)}
-
-/* ===== телефон: та же страница, одна колонка ===== */
-@media (max-width:1000px){.nav .nx{display:none}.burger{display:grid}}
-@media (max-width:760px){
-  .w{padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
-  .sec{padding-top:80px}
-  .sec:last-of-type{padding-bottom:80px}
-  .nav,.telw{display:none}
-  .burger{display:grid}
-  .bar .w{gap:12px;height:64px}
-  .logo{padding:8px 16px 8px 0}
-  .mark{width:30px;height:34px}
-  .hero-art{margin:0 -20px}
-  .hero-art .fly-ctl{left:32px;right:32px;bottom:4px;justify-content:flex-end}
-  .hero-art .fb{height:36px;padding:0 12px 0 8px;font-size:13px}
-  .hero-card{margin-top:0;box-shadow:none;background:transparent;padding:8px 0 0;border-radius:0}
-    .strip{grid-template-columns:1fr 1fr;gap:12px;padding-top:40px}
-  .strip li{border:0;padding:14px 12px;grid-template-columns:24px 1fr;gap:2px 10px;align-items:start;background:var(--surface-lowest);border-radius:var(--r-m)}
-  .strip li:first-child{padding-left:12px}
-  .strip li:last-child{grid-column:1/-1}
-  .strip .msi{grid-row:span 2;font-size:24px;width:24px}
-  .strip b{font-size:14px;line-height:20px}
-  .strip span:not(.msi){font-size:13px;line-height:18px}
-  .logos{grid-template-columns:1fr 1fr;gap:12px;padding-top:32px}
-  .logos div{height:72px;font-size:16px;padding:0 8px;text-align:center}
-  .logos .l5{letter-spacing:1.5px;font-size:11px}.logos .l1{letter-spacing:3px}
-  .quote{padding-top:48px}.quote p{font-size:22px;line-height:30px}
-  .desk-only{display:none}
-  .faq-ark{grid-template-columns:88px 1fr}.faq-ark .ark{width:88px}
-  .h-display{font-size:56px;line-height:64px;letter-spacing:-.5px}
-  .h-sec{font-size:32px;line-height:40px;letter-spacing:0}
-  .t-body-l{font-size:16px;line-height:24px}
-  .hero-cta .btn{flex:1 1 100%}
-  .car-nav .icon-btn{width:40px;height:40px}
-  .car-head{align-items:center}
-  .track{padding-top:32px;margin:0 -20px;padding-left:20px;padding-right:20px;scroll-padding-left:20px}
-  .progress{margin-top:24px}
-  .tiers{grid-template-columns:1fr;padding-top:32px}
-  .tier{padding:24px}
-  .book{grid-template-columns:1fr;margin-top:32px}
-  .ark-col{flex-direction:row;align-items:flex-end;justify-content:flex-start;padding:20px 20px 0;gap:12px}
-  .ark-col .ark{order:0}
-  .ark-col .ark{width:96px}
-  .ark-name{padding-bottom:20px;align-self:auto;flex:1}
-  .steps{padding:28px 20px 32px}
-  .step-body{padding-left:0}
-  #days{gap:8px;display:grid;grid-template-columns:repeat(4,1fr)}
-  #days .fchip{min-width:0;height:52px}
-  .fields{grid-template-columns:1fr}
-  .total .btn{flex:1 1 100%}
-  .faq{grid-template-columns:1fr;gap:24px}
-  .faq-side{position:static}
-  .qa summary{font-size:16px;line-height:24px;padding:20px 0}
-  .qa p{padding-right:0}
-  .contact{grid-template-columns:1fr;gap:32px}
-  .foot{margin-top:80px}
-}
-
-/* ===== вкладка «Система» ===== */
-.sw{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:16px}
-.sw div{border-radius:var(--r-l);border:1px solid var(--outline-var);overflow:hidden;background:var(--surface-lowest)}
-.sw i{display:block;height:88px}
-.sw p{margin:0;padding:12px 14px;font:400 13px/18px var(--f-body);color:var(--on-surface-var)}
-.sw p b{display:block;font:500 14px/20px var(--f-body);color:var(--on-surface)}
-.sw code{font:400 12px/16px ui-monospace,Menlo,monospace}
-.ratio{display:flex;height:16px;border-radius:8px;overflow:hidden;margin-top:24px;max-width:640px}
-.scale{display:grid;gap:20px}
-.scale div{display:grid;grid-template-columns:180px 1fr;gap:24px;align-items:baseline;border-bottom:1px solid var(--outline-var);padding-bottom:16px}
-.scale code{font:400 13px/18px ui-monospace,Menlo,monospace;color:var(--on-surface-var)}
-.tbl{overflow-x:auto}
-.tbl table{border-collapse:collapse;width:100%;min-width:640px}
-.tbl th,.tbl td{text-align:left;vertical-align:top;padding:16px 16px 16px 0;border-bottom:1px solid var(--outline-var);font:400 15px/22px var(--f-body)}
-.tbl th{font:500 13px/18px var(--f-body);color:var(--on-surface-var)}
-.tbl td:first-child{font-weight:500;width:32%}
-@media (max-width:760px){.scale div{grid-template-columns:1fr;gap:4px}}
-@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
-/* пролёт и кнопки управления: слева внизу картинки */
-.hero-v{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .4s;pointer-events:none;background:var(--surface)}
-.hero-art.flying .hero-v{opacity:1}
-.fly-ctl{position:absolute;left:max(24px,calc(50% - 576px));bottom:276px;z-index:3;display:flex;gap:8px;flex-wrap:wrap}
-.fb{display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 16px 0 12px;border-radius:var(--r-full);border:1px solid var(--outline-var);background:var(--surface-lowest);font:500 14px/20px var(--f-body);color:var(--on-surface);text-decoration:none;cursor:pointer;box-shadow:var(--e1)}
-.fb:hover{background:#fff;border-color:var(--primary)}
-.fb .msi{font-size:20px;color:var(--primary)}
-.err{color:var(--error);font:500 14px/20px var(--f-body);margin:0}
-html.is-loading{overflow:hidden}
-/* прелоадер с анимацией логотипа */
-.arka{display:block;width:100%;height:auto;overflow:visible;--arka-ink:currentColor}
-.arka .ink path{stroke:var(--arka-ink)}
-.arka .one,.arka .lt{fill:var(--arka-ink)}
-.arka .slogan{fill:var(--arka-ink);font-family:var(--f-body)}
-.arka .glint{stroke:var(--arka-glow,#fff)}
-.arka .spark{fill:var(--arka-glow,#fff)}
-.arka .curtain,.arka .hole,.arka--compact .slogan,.arka--compact .lt-d1,.arka--compact .lt-d2,.arka--compact .lt-d3,.arka--mark .word,.arka--mark .slogan{display:none}
-.loader{--bg:#F5F2EC;--fg:#213641;--brass:#B08D5B;position:fixed;inset:0;z-index:200;display:grid;place-items:center;align-content:center;gap:24px;background:var(--bg);color:var(--fg);--arka-glow:var(--brass);overflow:hidden}
-.loader.is-cut{background:transparent}
-.arka-skip .loader{display:none}
-.loader .arka .curtain,.loader .arka .hole{display:block;fill:var(--bg)}
-.loader [data-arka-loader]{width:clamp(120px,18vw,180px)}
-.loader .count{position:relative;z-index:1;font:500 12px/1 var(--f-body);letter-spacing:.14em;text-transform:uppercase;opacity:.7;font-variant-numeric:tabular-nums}
-.logo{color:#fff;--arka-glow:#C9A26A;width:78px}
-.logo .arka{width:34px;height:auto}
-/* кнопки пролёта: в левом нижнем углу самого видео */
-@media (min-width:761px){
-  .hero-art .fly-ctl{left:auto;right:16px;bottom:16px;flex-direction:column}
-  .hero-art .fb{width:44px;height:44px;padding:0;justify-content:center;position:relative}
-  .hero-art .fb .lab{position:absolute;right:52px;white-space:nowrap;background:var(--primary);color:#fff;padding:6px 10px;border-radius:8px;font-size:13px;opacity:0;pointer-events:none;transition:opacity .15s}
-  .hero-art .fb:hover .lab,.hero-art .fb:focus-visible .lab{opacity:1}
-}
-.mmenu{position:absolute;left:0;right:0;top:100%;background:var(--primary);display:grid;padding:8px max(20px,env(safe-area-inset-left,0px)) 20px;box-shadow:0 16px 24px -12px rgba(0,0,0,.35)}
-.mmenu a{color:#fff;text-decoration:none;font:500 18px/24px var(--f-body);padding:14px 0;border-bottom:1px solid rgba(255,255,255,.14)}
-.mmenu .mtel{display:flex;gap:10px;align-items:center;border:0;color:var(--gold)}
-@media (min-width:1001px){.mmenu{display:none!important}}
-.step,.book,#ok{scroll-margin-top:84px}
-</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=account_balance,add,arrow_back,arrow_forward,call,cancel,celebration,chair,check,check_circle,checkroom,chevron_left,chevron_right,close,co_present,coffee,directions_subway,door_front,elevator,event,event_available,expand_more,format_quote,groups,light_mode,local_parking,local_shipping,mail,map,menu,mic,pause,payments,photo_camera,play_arrow,receipt_long,remove,replay,restaurant,route,schedule,send,square_foot,storefront,swap_horiz,videocam,view_in_ar,wifi,window,work&display=block">
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
 <div class="loader" id="loader" role="status" aria-label="Загрузка"><div data-arka-loader></div><div class="count"><span id="arkaCount">0</span> / 123 м²</div></div>
@@ -412,16 +19,14 @@ html.is-loading{overflow:hidden}
 
 <header class="bar">
   <div class="w">
-    <a class="logo" href="#desktop" aria-label="АРКА 123, на главную"></a>
-    <nav class="nav" aria-label="Разделы">
-      <a href="#formats-s">Форматы</a><a href="#prices-s">Цены</a><a class="nx" href="#book-s">Бронь</a><a href="#faq-s">Вопросы</a><a class="nx" href="#contact-s">Контакты</a>
-    </nav>
+    <a class="logo" href="index.html" aria-label="АРКА 123, на главную"></a>
+    <nav class="nav" aria-label="Разделы"><a href="zal.html">Зал</a><a href="formaty.html">Форматы</a><a href="ceny.html">Цены</a><a class=nx href="voprosy.html">Вопросы</a><a class=nx href="kontakty.html">Контакты</a></nav>
     <div class="telw"><button class="tel-btn" type="button" id="telBtn" aria-label="Телефон" aria-expanded="false"><span class="msi">call</span></button><div class="tel-pop" id="telPop" hidden><b>+375 29 123-01-23</b><span>Звонок, WhatsApp, Viber · 9:00–21:00</span></div></div>
     <a class="btn btn-gold" href="#book-s">Забронировать</a>
     <button class="burger" type="button" aria-label="Меню" aria-expanded="false" aria-controls="mmenu"><span class="msi">menu</span></button>
   </div>
-<nav class="mmenu" id="mmenu" hidden aria-label="Меню">
-    <a href="#formats-s">Форматы</a><a href="#prices-s">Цены</a><a href="#book-s">Бронь</a><a href="#faq-s">Вопросы</a><a href="#contact-s">Контакты</a>
+  <nav class="mmenu" id="mmenu" hidden aria-label="Меню">
+    <a href="index.html" aria-current=page>Главная</a><a href="zal.html">Зал</a><a href="formaty.html">Форматы</a><a href="ceny.html">Цены</a><a href="voprosy.html">Вопросы</a><a href="kontakty.html">Контакты</a><a href="#book-s">Бронь</a>
     <a class="mtel" href="tel:+375291230123"><span class="msi">call</span>+375 29 123-01-23</a>
   </nav>
 </header>
@@ -439,7 +44,7 @@ html.is-loading{overflow:hidden}
   <div class="w">
     <div class="hero-card">
       <span class="label">Минск · ул. Мстиславца, 10</span>
-      <h2 class="h-display" id="hero-h">АРКА <b>123</b></h2>
+      <h1 class="h-display" id="hero-h">АРКА <b>123</b></h1>
       <p class="t-body-l">Светлый зал 123 м² с арочными окнами 4 × 3,5 м напротив Национальной библиотеки. Почасовая аренда для конференций, мастер-классов и съёмок.</p>
       <p class="hero-meta"><span>от <b>90 BYN</b> в час</span><span>до <b>100</b> гостей</span><span><b>7 минут</b> от метро «Восток»</span></p>
     </div>
@@ -504,11 +109,11 @@ html.is-loading{overflow:hidden}
                 <button class="fchip" type="button" data-c="звонок" data-l="Телефон" data-p="+375 29 000-00-00" aria-pressed="false">Звонок</button>
               </div></div>
             <div class="field full rv" id="rvContact"><input id="f-contact" placeholder="@username"><label for="f-contact" id="lc">Ник в Telegram</label></div>
-            <div class="field rv rvLast"><select id="f-fmt"><option>Конференция</option><option>Мастер-класс</option><option>Съёмка</option><option>Фуршет</option><option>Другое</option></select><label for="f-fmt">Формат</label></div>
+            <div class="field rv rvLast"><select id="f-fmt"><option>Конференция</option><option>Мастер-класс</option><option>Съёмка</option><option>Шоурум или pop-up</option><option>Фуршет или праздник</option><option>Офис на месяц</option><option>Другое</option></select><label for="f-fmt">Формат</label></div>
             <div class="field rv rvLast"><input id="f-guests" inputmode="numeric" value="40"><label for="f-guests">Гостей</label></div>
           </div>
           <div class="total rv rvLast">
-            <span class="legal">Нажимая кнопку, вы соглашаетесь с <a href="#contact-s">политикой обработки данных</a>.</span>
+            <span class="legal">Нажимая кнопку, вы соглашаетесь с <a href="politika.html">политикой обработки данных</a>.</span>
             <button class="btn btn-filled" type="submit"><span class="msi">send</span>Отправить заявку</button>
           </div>
         </form>
@@ -534,16 +139,16 @@ html.is-loading{overflow:hidden}
     </div>
   </div>
   <div class="track" id="track" tabindex="0" aria-label="Форматы, листайте вбок">
-    <a class="card" href="#formats-s"><div class="ph"><img src="ph-conf.jpg" alt="Зал с рядами стульев для конференции" loading="lazy"></div>
+    <a class="card" href="formaty.html#conf"><div class="ph"><img src="ph-conf.jpg" alt="Зал с рядами стульев для конференции" loading="lazy"></div>
       <div class="meta"><div><span class="kick">Главный формат</span><h3 class="t-title">Конференции и мастер-классы</h3><span class="t-small">До 100 мест театром или 40 за столами</span></div><span class="price">от 90 BYN/ч</span></div></a>
-    <a class="card" href="#formats-s"><div class="ph"><img src="ph-shoot.jpg" alt="Съёмка у арочного окна" loading="lazy"></div>
+    <a class="card" href="formaty.html#shoot"><div class="ph"><img src="ph-shoot.jpg" alt="Съёмка у арочного окна" loading="lazy"></div>
       <div class="meta"><div><h3 class="t-title">Фото- и видеосъёмки</h3><span class="t-small">Свет из арок, Библиотека в кадре</span></div><span class="price">от 90 BYN/ч</span></div></a>
-    <a class="card" href="#formats-s"><div class="ph"><img src="ph-show.jpg" alt="Вешалки с одеждой в шоуруме" loading="lazy"></div>
+    <a class="card" href="formaty.html#show"><div class="ph"><img src="ph-show.jpg" alt="Вешалки с одеждой в шоуруме" loading="lazy"></div>
       <div class="meta"><div><h3 class="t-title">Шоурумы и выставки</h3><span class="t-small">Pop-up и показы на 1–7 дней</span></div><span class="price">от 690 BYN/д</span></div></a>
     
-    <a class="card" href="#formats-s"><div class="ph"><img src="ph-office.jpg" alt="Рабочие места в светлом зале" loading="lazy"></div>
+    <a class="card" href="formaty.html#office"><div class="ph"><img src="ph-office.jpg" alt="Рабочие места в светлом зале" loading="lazy"></div>
       <div class="meta"><div><h3 class="t-title">Офис на месяц</h3><span class="t-small">Команда до 20 человек, свои ключи</span></div><span class="price">3 900 BYN/мес</span></div></a>
-    <a class="card" href="#formats-s"><div class="ph"><img src="ph-party.jpg" alt="Фуршет на закате у окна" loading="lazy"></div>
+    <a class="card" href="formaty.html#party"><div class="ph"><img src="ph-party.jpg" alt="Фуршет на закате у окна" loading="lazy"></div>
       <div class="meta"><div><h3 class="t-title">Фуршеты и праздники</h3><span class="t-small">Корпоративы и вечеринки до 23:00</span></div><span class="price">от 120 BYN/ч</span></div></a>
   </div>
   <div class="progress" aria-hidden="true"><i id="bar"></i></div>
@@ -584,7 +189,7 @@ html.is-loading{overflow:hidden}
       <div class="pickbar"><div><small>Вы выбрали</small><b id="pick2">Дата не выбрана</b></div><a class="btn btn-text" href="#book-s">Изменить</a></div>
       <div class="fields">
         <div class="field"><input id="l-name" autocomplete="name" placeholder=" "><label for="l-name">Имя</label></div>
-        <div class="field"><select id="l-fmt"><option>Конференция</option><option>Мастер-класс</option><option>Съёмка</option><option>Шоурум или pop-up</option><option>Фуршет или праздник</option><option>Офис на месяц</option></select><label for="l-fmt">Формат</label></div>
+        <div class="field"><select id="l-fmt"><option>Конференция</option><option>Мастер-класс</option><option>Съёмка</option><option>Шоурум или pop-up</option><option>Фуршет или праздник</option><option>Офис на месяц</option><option>Другое</option></select><label for="l-fmt">Формат</label></div>
         <div class="grp field full" style="gap:12px"><span class="grp-l">Как с вами связаться</span>
           <div class="chips" id="chan2">
             <button class="fchip" type="button" data-c="1" data-l="Ник в Telegram" data-p="@username" aria-pressed="true">Telegram</button>
@@ -597,7 +202,7 @@ html.is-loading{overflow:hidden}
         <div class="field"><input id="l-guests" inputmode="numeric" value="40"><label for="l-guests">Гостей</label></div>
         <div class="field"><input id="l-msg" placeholder="Техника, кофе-брейк"><label for="l-msg">Комментарий</label></div>
       </div>
-      <div class="total"><span class="legal">Нажимая кнопку, вы соглашаетесь с <a href="#contact-s">политикой обработки данных</a>.</span><button class="btn btn-filled" type="submit" id="lsend"><span class="msi">send</span>Отправить заявку</button></div>
+      <div class="total"><span class="legal">Нажимая кнопку, вы соглашаетесь с <a href="politika.html">политикой обработки данных</a>.</span><button class="btn btn-filled" type="submit" id="lsend"><span class="msi">send</span>Отправить заявку</button></div>
     </form>
   </div>
 </section>
@@ -635,177 +240,23 @@ html.is-loading{overflow:hidden}
 </section>
 </main>
 
-<footer class="foot"><div class="w"><span>АРКА 123 · Минск, ул. Мстиславца, 10</span><span>ООО «Арка Сто Двадцать Три», УНП 193000123 · Политика обработки данных</span><span>© 2026</span></div></footer>
+<footer class="foot"><div class="w foot-grid">
+  <div><b>АРКА 123</b><span>Минск, ул. Мстиславца, 10, второй этаж</span><span><a href="tel:+375291230123">+375 29 123-01-23</a> · 9:00–21:00</span><span><a href="mailto:hello@arka123.by">hello@arka123.by</a></span></div>
+  <nav class="foot-nav" aria-label="Страницы"><a href="index.html">Главная</a><a href="zal.html">Зал</a><a href="formaty.html">Форматы</a><a href="ceny.html">Цены</a><a href="voprosy.html">Вопросы</a><a href="kontakty.html">Контакты</a><a href="#book-s">Бронь</a><a href="3d.html">3D-режим</a></nav>
+  <div><span>ООО «Арка Сто Двадцать Три»</span><span>УНП 193000123</span><span><a href="politika.html">Политика обработки данных</a></span></div>
+  <div class="foot-bottom"><span>© 2026 АРКА 123</span><span>Зал с арочными окнами напротив Национальной библиотеки</span></div>
+</div></footer>
 </div>
 
 <script src="gsap.min.js"></script>
 <script src="arka-logo.js"></script>
 <script>
 (function(){const l=document.getElementById("loader"); const hl=document.querySelector(".logo");
- if(!window.gsap||!window.ArkaLogo){l.remove();return}
- const hdr=ArkaLogo.mount(hl,{mark:true}); hl.setAttribute("href","#"); hdr.bindHover(hl);
+ if(!window.gsap||!window.ArkaLogo){if(l)l.remove();return}
+ const hdr=ArkaLogo.mount(hl,{mark:true}); hdr.bindHover(hl);
  ArkaLogo.runLoader(l,{counter:l.querySelector("#arkaCount"),reveal:document.querySelector(".hero"),minTime:1400}).then(()=>{try{hdr.intro()}catch(e){}});
 })();
 </script>
-<script>
-(()=>{
-  const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
-    /* якоря внутри сайта: прокрутка в своём контейнере */
-  $$('.site a[href^="#"]').forEach(a=>{const id=a.getAttribute('href').slice(1); const t=document.getElementById(id); if(!t) return;
-    a.addEventListener('click',e=>{e.preventDefault(); t.scrollIntoView({behavior:'smooth',block:'start'})})});
-
-  /* карусель */
-  const tr=$('#track'), cards=[...tr.children], bar=$('#bar'), cnt=$('#cnt');
-  function idx(){const x=tr.scrollLeft, w=cards[0].offsetWidth+16; return Math.min(cards.length-1,Math.round(x/w))}
-  function upd(){
-    const max=tr.scrollWidth-tr.clientWidth, vis=tr.clientWidth/tr.scrollWidth;
-    bar.style.width=(vis*100)+'%'; bar.style.transform=`translateX(${max>0?(tr.scrollLeft/max)*(1/vis-1)*100:0}%)`;
-    const i=tr.scrollLeft>=max-4?cards.length-1:idx(); cnt.textContent=(i+1)+' / '+cards.length;
-    $('[data-dir="-1"]').disabled=tr.scrollLeft<4; $('[data-dir="1"]').disabled=tr.scrollLeft>=max-4;
-  }
-  tr.addEventListener('scroll',upd,{passive:true}); addEventListener('resize',()=>{upd(); if(window.__wasDesk!==isDesk()){window.__wasDesk=isDesk(); window.__resetBook()}});
-  $$('[data-dir]').forEach(b=>b.onclick=()=>tr.scrollBy({left:+b.dataset.dir*(cards[0].offsetWidth+16)}));
-  tr.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='ArrowLeft'){e.preventDefault();tr.scrollBy({left:(e.key==='ArrowRight'?1:-1)*(cards[0].offsetWidth+16)})}});
-  upd();
-
-  /* ===== данные: сервер (/api), а без сервера (файл или статический хостинг) резервное хранилище в браузере ===== */
-  const TZ='Europe/Minsk', OPEN=9, CLOSE=21, LS='arka_requests_v1', HOLD=24*3600e3;
-  const minsk=()=>{const p=Object.fromEntries(new Intl.DateTimeFormat('en-GB',{timeZone:TZ,year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',hour12:false}).formatToParts(new Date()).map(x=>[x.type,x.value]));return {date:`${p.year}-${p.month}-${p.day}`,hour:+p.hour%24}};
-  const addDays=(iso,n)=>{const d=new Date(iso+'T00:00:00Z');d.setUTCDate(d.getUTCDate()+n);return d.toISOString().slice(0,10)};
-  const MONTHS=['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'], WD=['вс','пн','вт','ср','чт','пт','сб'];
-  const fmt=iso=>{const d=new Date(iso+'T00:00:00Z');return d.getUTCDate()+' '+MONTHS[d.getUTCMonth()]};
-  const wd=iso=>WD[new Date(iso+'T00:00:00Z').getUTCDay()];
-  const priceOf=(s,d)=>{let x=0;for(let h=s;h<s+d;h++)x+=h>=17?120:90;return x};
-  const localList=()=>{try{return JSON.parse(localStorage.getItem(LS)||'[]')}catch(e){return []}};
-  const localBusy=()=>{const b={};localList().forEach(r=>{if(!r.booking||Date.now()-r.createdAt>HOLD)return;for(let h=r.booking.start;h<r.booking.start+r.booking.dur;h++)(b[r.booking.date]=b[r.booking.date]||[]).push(h)});return b};
-  const api={
-    async avail(){
-      try{const r=await fetch('/api/availability',{cache:'no-store'}); if(!r.ok) throw 0; const j=await r.json(); return {busy:j.busy,today:j.today,hour:j.hour,remote:true}}
-      catch(e){const n=minsk(); return {busy:localBusy(),today:n.date,hour:n.hour,remote:false}}
-    },
-    async send(p){
-      try{
-        const r=await fetch('/api/requests',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(p)});
-        if([404,405,501].includes(r.status)) throw 0;
-        const j=await r.json().catch(()=>({}));
-        return r.ok?{ok:true}:{ok:false,error:j.error||'Не удалось отправить, попробуйте ещё раз'};
-      }catch(e){
-        const b=p.booking, busy=localBusy()[b&&b.date]||[];
-        if(b) for(let h=b.start;h<b.start+b.dur;h++) if(busy.includes(h)) return {ok:false,error:'Это время уже заняли, выберите другое'};
-        const l=localList(); l.push({...p,createdAt:Date.now(),status:'new'}); try{localStorage.setItem(LS,JSON.stringify(l))}catch(x){}
-        return {ok:true,local:true};
-      }
-    }
-  };
-
-  /* ===== календарь ===== */
-  let day=null,t=null,dur=2,chan='Telegram',A={busy:{},today:minsk().date,hour:minsk().hour};
-  const hrs=n=>n+' '+(n%10===1&&n%100!==11?'час':(n%10>=2&&n%10<=4&&(n%100<10||n%100>=20))?'часа':'часов');
-  const show=(el,on)=>{el=typeof el==='string'?$(el):el; if(on) el.classList.add('in'); else el.classList.remove('in')};
-  const free=(d,h)=>!(A.busy[d]||[]).includes(h)&&!(d===A.today&&h<=A.hour);
-  const starts=d=>{const r=[];for(let h=OPEN;h<=CLOSE-2;h++) if(free(d,h)&&free(d,h+1)) r.push(h);return r};
-  const maxDur=()=>{let d=0;for(let h=t;h<CLOSE&&free(day,h);h++)d++;return d};
-  const price=()=>priceOf(t,dur);
-  const range=()=>fmt(day)+', '+t+':00–'+(t+dur)+':00';
-  const HORIZON=180;
-  function renderDays(){
-    const box=$('#days'), keep=day&&!$('#days [data-d="'+day+'"]')?day:null;
-    let h='';
-    for(let i=0;i<14;i++){const d=addDays(A.today,i), ok=starts(d).length>0, first=i===0||d.endsWith('-01');
-      h+=`<button class="fchip" type="button" ${ok?'data-d="'+d+'"':'disabled'} aria-pressed="${d===day}">${+d.slice(8)} <small>${wd(d)}${first?' · '+MONTHS[+d.slice(5,7)-1].slice(0,3):''}</small></button>`}
-    if(keep) h+=`<button class="fchip" type="button" data-d="${keep}" aria-pressed="true">${+keep.slice(8)} <small>${MONTHS[+keep.slice(5,7)-1].slice(0,3)}</small></button>`;
-    h+=`<button class="fchip" type="button" id="dOtherB" aria-label="Другая дата"><span class="msi" style="font-size:18px">event</span><small>Другая</small></button>`;
-    box.innerHTML=h;
-  }
-  function renderTimes(){
-    $('#timeL').textContent='Начало, '+fmt(day);
-    const ok=starts(day);
-    $('#times').innerHTML=[9,10,11,12,13,14,15,16,17,18,19].map(h=>ok.includes(h)?`<button class="fchip" type="button" data-t="${h}" aria-pressed="${h===t}">${h}:00</button>`:`<button class="fchip" type="button" disabled>${h}:00</button>`).join('');
-  }
-  function calc(){
-    if(t===null) return;
-    dur=Math.max(2,Math.min(dur,maxDur()));
-    $('#dv').textContent=hrs(dur); $('#dm').disabled=dur<=2; $('#dp').disabled=dur>=maxDur();
-    $('#sum').textContent=price()+' BYN'; $('#sumHint').textContent=range();
-    $('#pick2').textContent=range()+' · '+price()+' BYN';
-    $('#nextD').textContent='Забронировать '+fmt(day);
-  }
-  function selectDay(d){day=d;t=null;renderDays();renderTimes();show('#rvTime',true);show('#rvDur',false);$('#pick2').textContent=fmt(day)+', время не выбрано'}
-  function selectTime(h){t=h;dur=2;renderTimes();calc();show('#rvDur',true)}
-  $('#days').addEventListener('click',e=>{
-    const b=e.target.closest('button'); if(!b) return;
-    if(b.id==='dOtherB'){const i=$('#dOther'); i.min=A.today; i.max=addDays(A.today,HORIZON); try{i.showPicker()}catch(x){i.focus();i.click()} return}
-    if(b.dataset.d) selectDay(b.dataset.d);
-  });
-  $('#dOther').addEventListener('change',e=>{const v=e.target.value; if(!v||v<A.today||v>addDays(A.today,HORIZON)) return;
-    if(!starts(v).length){$('#dOtherNote').textContent='На '+fmt(v)+' свободного времени нет, выберите другую дату.';return}
-    $('#dOtherNote').textContent=''; selectDay(v)});
-  $('#times').addEventListener('click',e=>{const b=e.target.closest('button[data-t]'); if(b) selectTime(+b.dataset.t)});
-  $('#dm').onclick=()=>{dur--;calc()}; $('#dp').onclick=()=>{dur++;calc()};
-  function pick(box,attr,fn){box.addEventListener('click',e=>{const b=e.target.closest('button[data-'+attr+']'); if(!b) return;
-    box.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b)); fn(b)})}
-  pick($('#chan'),'c',b=>{$('#lc').textContent=b.dataset.l;$('#f-contact').placeholder=b.dataset.p;chan=b.dataset.c; show('#rvContact',true); setTimeout(()=>$('#f-contact').focus({preventScroll:true}),30)});
-  $('#f-name').addEventListener('input',e=>{if(e.target.value.trim().length>=2) show('#rvChan',true)});
-  $('#f-contact').addEventListener('input',e=>{if(e.target.value.trim().length>=3) $$('.rvLast').forEach(x=>show(x,true))});
-  const isDesk=()=>innerWidth>760;
-  function step(n){
-    const one=n===1;
-    $('#b1').hidden=!one; $('#sum1').hidden=one; $('#edit1').hidden=one; $('#sum2h').hidden=!one;
-    $('#st1').classList.toggle('done',!one); $('#n1').innerHTML=one?'1':'<span class="msi" style="font-size:18px">check</span>';
-    $('#st2').classList.toggle('off',one); $('#b2').hidden=one; $('#ok').hidden=true;
-    if(t!==null) $('#sum1').textContent=range()+' · '+price()+' BYN';
-    $('#arkSay').textContent=one?'управляющий залом. Держу дату 24 часа без предоплаты.':'Осталось сказать, куда прислать подтверждение.';
-    if(!one) setTimeout(()=>$('#f-name').focus({preventScroll:true}),50);
-    if(!isDesk()) requestAnimationFrame(()=>$(one?'#st1':'#st2').scrollIntoView({behavior:'smooth',block:'start'}));
-  }
-  async function refresh(){A=await api.avail(); renderDays(); if(day&&!starts(day).length){day=null;t=null} if(day){renderTimes(); if(t!==null&&!(starts(day).includes(t)&&maxDur()>=2)){t=null;show('#rvDur',false);$('#pick2').textContent=fmt(day)+', время не выбрано'}else calc()}}
-  async function resetBook(){
-    day=null;t=null;dur=2; await refresh(); renderDays();
-    ['#rvTime','#rvDur','#rvChan','#rvContact'].forEach(x=>show(x,false)); $$('.rvLast').forEach(x=>show(x,false));
-    step(1); $('#pick2').textContent='Дата не выбрана';
-    if(isDesk()){ const d=addDays(A.today,0), f=[...Array(14).keys()].map(i=>addDays(A.today,i)).find(x=>starts(x).length); if(f){selectDay(f); selectTime(starts(f)[0])} }
-  }
-  window.__resetBook=resetBook;
-  $('#next').onclick=()=>{ if(isDesk()){ const L=$('#lead-s'); L.scrollIntoView({behavior:'smooth',block:'start'}); setTimeout(()=>$('#l-name').focus({preventScroll:true}),500);} else step(2); }; $('#edit1').onclick=()=>step(1);
-  const errBox=(form)=>{let e=form.querySelector('.err'); if(!e){e=document.createElement('p');e.className='err';e.setAttribute('role','alert');form.querySelector('.total').before(e)} return e};
-  async function submit(form,btn,p,onOk){
-    const e=errBox(form); e.textContent='';
-    if(p.name.trim().length<2){e.textContent='Введите имя';return}
-    if(p.contact.trim().length<3){e.textContent='Укажите, как с вами связаться';return}
-    btn.disabled=true; const old=btn.innerHTML; btn.innerHTML='Отправляем…';
-    const r=await api.send(p);
-    btn.disabled=false; btn.innerHTML=old;
-    if(!r.ok){e.textContent=r.error; if(p.booking){await refresh(); if(!isDesk()) step(1)} else e.scrollIntoView({block:'center',behavior:'smooth'}); return}
-    onOk(); refresh();
-  }
-  const bookingPart=()=>t!==null?{date:day,start:t,dur}:undefined;
-  $('#b2').addEventListener('submit',e=>{e.preventDefault(); const btn=e.submitter||$('#b2 button[type=submit]');
-    submit($('#b2'),btn,{booking:bookingPart(),name:$('#f-name').value,channel:chan,contact:$('#f-contact').value,format:$('#f-fmt').value,guests:$('#f-guests').value,website:$('#hp1').value},()=>{
-      $('#b2').hidden=true; $('#ok').hidden=false; $('#edit1').hidden=true; requestAnimationFrame(()=>$('#ok').scrollIntoView({behavior:'smooth',block:'center'}));
-      $('#okTx').textContent=`Анна ответит ${chan==='звонок'?'звонком':'в '+chan} в течение 15 минут.`;
-      $('#arkSay').textContent='Окна к вашему приходу откроем. До встречи на Мстиславца, 10.'})});
-  pick($('#chan2'),'c',b=>{$('#l-cl').textContent=b.dataset.l;$('#l-contact').placeholder=b.dataset.p});
-  $('#leadF').addEventListener('submit',e=>{e.preventDefault(); const btn=$('#lsend'), ch=$('#chan2 [aria-pressed="true"]');
-    submit($('#leadF'),btn,{booking:bookingPart(),name:$('#l-name').value,channel:ch?ch.textContent.trim().replace('Звонок','звонок'):'Telegram',contact:$('#l-contact').value,format:$('#l-fmt').value,guests:$('#l-guests').value,message:$('#l-msg').value,website:$('#hp2').value},()=>{
-      btn.innerHTML='<span class="msi">check</span>Заявка отправлена'; btn.disabled=true; setTimeout(()=>{btn.disabled=false;btn.innerHTML='<span class="msi">send</span>Отправить заявку'},6000)})});
-  /* видео на первом экране: идёт по кругу, кнопка ставит на паузу */
-  {const v=$('#heroV'),pb=$('#flyBtn'),lab=$('#flyLab'),ic=$('#flyIc'),art=$('.hero-art');
-   const set=(i,l)=>{ic.textContent=i;lab.textContent=l;pb.setAttribute('aria-label',l)};
-   const calm=matchMedia('(prefers-reduced-motion:reduce)').matches;
-   v.addEventListener('playing',()=>{art.classList.add('flying');set('pause','Остановить видео')});
-   v.addEventListener('pause',()=>set('play_arrow','Запустить видео'));
-   pb.onclick=()=>{ if(v.paused) v.play().catch(()=>{}); else v.pause()};
-   if(calm){set('play_arrow','Запустить видео')} else v.play().catch(()=>set('play_arrow','Запустить видео'));}
-  /* меню на телефоне */
-  {const bg=$('.burger'),m=$('#mmenu'),ic=bg.querySelector('.msi');
-   const tog=o=>{m.hidden=!o;bg.setAttribute('aria-expanded',o);ic.textContent=o?'close':'menu'};
-   bg.onclick=e=>{e.stopPropagation();tog(m.hidden)};
-   m.addEventListener('click',e=>{if(e.target.closest('a')) tog(false)});
-   document.addEventListener('keydown',e=>{if(e.key==='Escape') tog(false)});
-   addEventListener('resize',()=>{if(innerWidth>1000) tog(false)});}
-  resetBook(); window.__wasDesk=isDesk();
-  const tb=$('#telBtn'),tp=$('#telPop'); tb.onclick=e=>{e.stopPropagation();tp.hidden=!tp.hidden;tb.setAttribute('aria-expanded',!tp.hidden)}; document.addEventListener('click',()=>{tp.hidden=true;tb.setAttribute('aria-expanded','false')});
-})();
-</script>
+<script src="site.js"></script>
 </body>
 </html>
