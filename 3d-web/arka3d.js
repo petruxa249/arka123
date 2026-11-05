@@ -232,7 +232,7 @@ export function start(root, opts = {}) {
   add(new THREE.BoxGeometry(T, H + .3, D), mWall, -T / 2, (H + .3) / 2, D / 2);
   add(new THREE.BoxGeometry(T, H + .3, D), mWall, W + T / 2, (H + .3) / 2, D / 2);
   add(new THREE.BoxGeometry(W + 2 * T, .3, D + 2 * T), mCeil, W / 2, H + .15, D / 2, ceilingGroup);
-  add(new THREE.BoxGeometry(W + 2 * T, .2, D + 2 * T + .5), mAnth, W / 2, -.1, D / 2 - .2).receiveShadow = false;  // перекрытие под полом (видно снаружи)
+  add(new THREE.BoxGeometry(W + 2 * T, .2, D + 2 * T + .5), mAnth, W / 2, -.13, D / 2 - .2).receiveShadow = false;  // перекрытие под полом (видно снаружи); верх на 3 см ниже паркета, иначе пол мерцает
   for (const bx of [2.6, COLS[0][0], 10.3]) add(new THREE.BoxGeometry(.3, .4, D), mCeil, bx, H - .2, D / 2, ceilingGroup);
   COLS.forEach(([x, z]) => add(new THREE.BoxGeometry(COLW, H, COLW), mAnth, x, H / 2, z));
   /* плинтус */
