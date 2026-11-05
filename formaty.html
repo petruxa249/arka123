@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,400;8..144,500;8..144,600&family=Roboto:wght@400;500&display=swap">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=account_balance,add,arrow_back,arrow_forward,call,cancel,celebration,chair,check,check_circle,checkroom,chevron_left,chevron_right,close,co_present,coffee,directions_subway,door_front,elevator,event,event_available,expand_more,format_quote,groups,light_mode,local_parking,local_shipping,mail,map,menu,mic,pause,payments,photo_camera,play_arrow,receipt_long,remove,replay,restaurant,route,schedule,send,square_foot,storefront,swap_horiz,videocam,view_in_ar,wifi,window,work&display=block">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=account_balance,add,arrow_back,arrow_forward,call,cancel,celebration,chair,check,check_circle,checkroom,chevron_left,chevron_right,close,co_present,coffee,dark_mode,directions_subway,door_front,elevator,event,event_available,expand_more,format_quote,fullscreen,fullscreen_exit,groups,light_mode,local_parking,local_shipping,mail,map,menu,mic,pause,payments,photo_camera,play_arrow,receipt_long,remove,replay,restaurant,route,schedule,send,square_foot,stop,storefront,swap_horiz,videocam,view_in_ar,wifi,window,work&display=block">
 <link rel="stylesheet" href="styles.css?v=c48f32d0">
 </head>
 <body>
@@ -19,13 +19,13 @@
 <header class="bar">
   <div class="w">
     <a class="logo" href="index.html" aria-label="АРКА 123, на главную"></a>
-    <nav class="nav" aria-label="Разделы"><a href="zal.html">Зал</a><a href="formaty.html" aria-current=page>Форматы</a><a href="ceny.html">Цены</a><a class=nx href="voprosy.html">Вопросы</a><a class=nx href="kontakty.html">Контакты</a></nav>
+    <nav class="nav" aria-label="Разделы"><a href="zal.html">Зал</a><a href="3d.html">3D</a><a href="formaty.html" aria-current=page>Форматы</a><a href="ceny.html">Цены</a><a class=nx href="voprosy.html">Вопросы</a><a class=nx href="kontakty.html">Контакты</a></nav>
     <div class="telw"><button class="tel-btn" type="button" id="telBtn" aria-label="Телефон" aria-expanded="false"><span class="msi">call</span></button><div class="tel-pop" id="telPop" hidden><b>+375 29 123-01-23</b><span>Звонок, WhatsApp, Viber · 9:00–21:00</span></div></div>
     <a class="btn btn-gold" href="index.html#book-s">Забронировать</a>
     <button class="burger" type="button" aria-label="Меню" aria-expanded="false" aria-controls="mmenu"><span class="msi">menu</span></button>
   </div>
   <nav class="mmenu" id="mmenu" hidden aria-label="Меню">
-    <a href="index.html">Главная</a><a href="zal.html">Зал</a><a href="formaty.html" aria-current=page>Форматы</a><a href="ceny.html">Цены</a><a href="voprosy.html">Вопросы</a><a href="kontakty.html">Контакты</a><a href="index.html#book-s">Бронь</a>
+    <a href="index.html">Главная</a><a href="zal.html">Зал</a><a href="3d.html">3D</a><a href="formaty.html" aria-current=page>Форматы</a><a href="ceny.html">Цены</a><a href="voprosy.html">Вопросы</a><a href="kontakty.html">Контакты</a><a href="index.html#book-s">Бронь</a>
     <a class="mtel" href="tel:+375291230123"><span class="msi">call</span>+375 29 123-01-23</a>
   </nav>
 </header>
@@ -44,7 +44,7 @@
       <p class="t-body-l">Главный формат зала. Экран стоит у глухой стены, поэтому дневной свет из окон не засвечивает слайды, а зрители сидят лицом к сцене и боком к Библиотеке.</p>
       <ul><li><span class="msi">check</span>До 100 мест театром или 40 за столами</li><li><span class="msi">check</span>Проектор, звук и два радиомикрофона</li><li><span class="msi">check</span>Кофе-брейк от 12 BYN за гостя</li></ul>
       <div class="fmt-price"><b>от 90 <small>BYN/ч</small></b><span class="t-small">будни до 17:00</span></div>
-      <div class="btns"><a class="btn btn-filled" href="index.html?f=Конференция#book-s">Забронировать<span class="msi">arrow_forward</span></a></div>
+      <div class="btns"><a class="btn btn-filled" href="index.html?f=Конференция#book-s">Забронировать<span class="msi">arrow_forward</span></a><a class="btn btn-outlined" href="3d.html?r=conf"><span class="msi">view_in_ar</span>Расстановка в 3D</a></div>
     </div>
   </article><article class="fmt" id="shoot" aria-labelledby="shoot-h">
     <div class="fmt-ph"><img src="ph-shoot.jpg" alt="Съёмка у арочного окна" loading="lazy" width="507" height="900" decoding="async"></div>
@@ -53,7 +53,7 @@
       <p class="t-body-l">Окна 4 × 3,5 м дают мягкий свет без вспышки большую часть дня. Библиотека в кадре узнаётся сразу, а светлые стены не дают цветных рефлексов.</p>
       <ul><li><span class="msi">check</span>Свет из окон с утра до заката</li><li><span class="msi">check</span>Подвесы под потолком 4,5 м</li><li><span class="msi">check</span>Гримёрная зона у гардероба</li></ul>
       <div class="fmt-price"><b>от 90 <small>BYN/ч</small></b><span class="t-small">минимум 2 часа</span></div>
-      <div class="btns"><a class="btn btn-filled" href="index.html?f=Съёмка#book-s">Забронировать<span class="msi">arrow_forward</span></a></div>
+      <div class="btns"><a class="btn btn-filled" href="index.html?f=Съёмка#book-s">Забронировать<span class="msi">arrow_forward</span></a><a class="btn btn-outlined" href="3d.html?r=shoot"><span class="msi">view_in_ar</span>Расстановка в 3D</a></div>
     </div>
   </article><article class="fmt" id="show" aria-labelledby="show-h">
     <div class="fmt-ph"><img src="ph-show.jpg" alt="Вешалки с одеждой в шоуруме" loading="lazy" width="507" height="900" decoding="async"></div>
@@ -62,7 +62,7 @@
       <p class="t-body-l">Pop-up на выходные или выставка на неделю. Монтаж накануне вечером, реквизит можно оставить, а гости заходят прямо с улицы.</p>
       <ul><li><span class="msi">check</span>Срок от 1 до 7 дней</li><li><span class="msi">check</span>Монтаж накануне вечером бесплатно</li><li><span class="msi">check</span>Хранение реквизита 3 дня</li></ul>
       <div class="fmt-price"><b>от 690 <small>BYN/день</small></b><span class="t-small">с 9:00 до 19:00</span></div>
-      <div class="btns"><a class="btn btn-filled" href="index.html?f=Шоурум+или+pop-up#book-s">Оставить заявку<span class="msi">arrow_forward</span></a></div>
+      <div class="btns"><a class="btn btn-filled" href="index.html?f=Шоурум+или+pop-up#book-s">Оставить заявку<span class="msi">arrow_forward</span></a><a class="btn btn-outlined" href="3d.html?r=show"><span class="msi">view_in_ar</span>Расстановка в 3D</a></div>
     </div>
   </article><article class="fmt" id="office" aria-labelledby="office-h">
     <div class="fmt-ph"><img src="ph-office.jpg" alt="Рабочие места в светлом зале" loading="lazy" width="900" height="507" decoding="async"></div>
@@ -71,7 +71,7 @@
       <p class="t-body-l">Временный офис для команды, пока идёт ремонт или стартует проект. Свои ключи, рабочие места у окон и переговорная зона.</p>
       <ul><li><span class="msi">check</span>Команда до 20 человек</li><li><span class="msi">check</span>Свои ключи и доступ 24/7</li><li><span class="msi">check</span>Уборка и интернет включены</li></ul>
       <div class="fmt-price"><b>3 900 <small>BYN/мес</small></b><span class="t-small">договор от месяца</span></div>
-      <div class="btns"><a class="btn btn-filled" href="index.html?f=Офис+на+месяц#book-s">Оставить заявку<span class="msi">arrow_forward</span></a></div>
+      <div class="btns"><a class="btn btn-filled" href="index.html?f=Офис+на+месяц#book-s">Оставить заявку<span class="msi">arrow_forward</span></a><a class="btn btn-outlined" href="3d.html?r=office"><span class="msi">view_in_ar</span>Расстановка в 3D</a></div>
     </div>
   </article><article class="fmt" id="party" aria-labelledby="party-h">
     <div class="fmt-ph"><img src="ph-party.jpg" alt="Фуршет на закате у окна" loading="lazy" width="900" height="678" decoding="async"></div>
@@ -80,7 +80,7 @@
       <p class="t-body-l">Корпоративы, дни рождения и запуски. На закате свет из арок становится тёплым, и фотографии получаются без ретуши.</p>
       <ul><li><span class="msi">check</span>До 70 гостей на фуршете</li><li><span class="msi">check</span>Свой кейтеринг или наши подрядчики</li><li><span class="msi">check</span>Работаем до 23:00</li></ul>
       <div class="fmt-price"><b>от 120 <small>BYN/ч</small></b><span class="t-small">вечер и выходные</span></div>
-      <div class="btns"><a class="btn btn-filled" href="index.html?f=Фуршет+или+праздник#book-s">Забронировать<span class="msi">arrow_forward</span></a></div>
+      <div class="btns"><a class="btn btn-filled" href="index.html?f=Фуршет+или+праздник#book-s">Забронировать<span class="msi">arrow_forward</span></a><a class="btn btn-outlined" href="3d.html?r=party"><span class="msi">view_in_ar</span>Расстановка в 3D</a></div>
     </div>
   </article></section>
 <section class="w sec"><a class="nextp" href="ceny.html"><span><small>Дальше</small><b>Цены и условия</b></span><span class="msi">arrow_forward</span></a></section>
@@ -88,7 +88,7 @@
 
 <footer class="foot"><div class="w foot-grid">
   <div><b>АРКА 123</b><span>Минск, ул. Мстиславца, 10, второй этаж</span><span><a href="tel:+375291230123">+375 29 123-01-23</a> · 9:00–21:00</span><span><a href="mailto:hello@arka123.by">hello@arka123.by</a></span></div>
-  <nav class="foot-nav" aria-label="Страницы"><a href="index.html">Главная</a><a href="zal.html">Зал</a><a href="formaty.html">Форматы</a><a href="ceny.html">Цены</a><a href="voprosy.html">Вопросы</a><a href="kontakty.html">Контакты</a><a href="index.html#book-s">Бронь</a><a href="3d.html">3D-режим</a></nav>
+  <nav class="foot-nav" aria-label="Страницы"><a href="index.html">Главная</a><a href="zal.html">Зал</a><a href="3d.html">3D</a><a href="formaty.html">Форматы</a><a href="ceny.html">Цены</a><a href="voprosy.html">Вопросы</a><a href="kontakty.html">Контакты</a><a href="index.html#book-s">Бронь</a></nav>
   <div><span>ООО «Арка Сто Двадцать Три»</span><span>УНП 193000123</span><span><a href="politika.html">Политика обработки данных</a></span></div>
   <div class="foot-bottom"><span>© 2026 АРКА 123</span><span>Зал с арочными окнами напротив Национальной библиотеки</span></div>
 </div></footer>
