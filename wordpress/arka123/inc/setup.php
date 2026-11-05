@@ -44,6 +44,7 @@ add_action('wp_enqueue_scripts', function () {
 });
 add_action('wp_head', function () {
 	echo '<meta name="theme-color" content="#213641">' . "\n";
+	if (!has_site_icon()) { $u = get_template_directory_uri() . '/assets/'; echo '<link rel="icon" href="' . esc_url($u . 'favicon.ico') . '" sizes="32x32">' . "\n" . '<link rel="icon" href="' . esc_url($u . 'favicon.svg') . '" type="image/svg+xml">' . "\n" . '<link rel="apple-touch-icon" href="' . esc_url($u . 'apple-touch-icon.png') . '">' . "\n"; }
 	if (is_front_page()) echo '<script>try{if(sessionStorage.getItem("arka_visited")==="1"&&location.hash!=="#intro")document.documentElement.classList.add("arka-skip")}catch(e){}</script>' . "\n";
 }, 1);
 /* описание страницы для поисковиков: отрывок страницы, иначе общее */
