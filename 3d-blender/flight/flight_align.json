@@ -1,0 +1,47 @@
+{
+ "fps": 30,
+ "frames": 181,
+ "duration_s": 6.0,
+ "video_px": [
+  1280,
+  720
+ ],
+ "frame0": {
+  "hero_cam": [
+   21,
+   1.7,
+   25
+  ],
+  "hero_target": [
+   1.5,
+   6.2,
+   -2.5
+  ],
+  "hero_F": 1180,
+  "hero_principal": [
+   500,
+   470
+  ],
+  "video_focal_px": 1196.6924109397169,
+  "video_principal_px": [
+   609.347815387049,
+   400.6397891313321
+  ],
+  "svg_per_video_px": 0.9860512101630118,
+  "note": "SVG(x,y) = hero_principal + (video_px - video_principal_px) * svg_per_video_px"
+ },
+ "end_three_js": {
+  "position": [
+   7.25,
+   6.900000095367432,
+   -8.600000381469727
+  ],
+  "look_at": [
+   6.469268321990967,
+   6.881262302398682,
+   -7.975415229797363
+  ],
+  "fov_vertical_deg": 49.426353760931796,
+  "units": "метры сцены первого экрана (Y вверх) = координаты three.js"
+ }
+}

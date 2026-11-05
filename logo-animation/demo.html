@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head><body style="margin:0">
+<title>АРКА 123 · анимация логотипа</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<script>
+/* Повторный визит за сессию: прячем лоадер до первой отрисовки. #intro в адресе показывает его снова. */
+try { if (sessionStorage.getItem('arka_visited') === '1' && location.hash !== '#intro') document.documentElement.classList.add('arka-skip'); } catch (e) {}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@700;800&family=Roboto:wght@400;500&display=swap">
+<style>
+/* Layout: лоадер на весь экран поверх лендинга; липкая шапка с компактным логотипом */
+:root{
+  --navy:#213641; --cream:#F3EFE8; --brass:#B08D5B;
+  --bg:#F6F3EE; --surface:#FFFFFF; --fg:#1C2C35; --muted:#5D6C74; --line:#E2DCD2;
+  --f-display:"Manrope","Segoe UI",system-ui,sans-serif; --f-body:"Roboto","Segoe UI",Arial,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#121D24;--surface:#18262F;--fg:#ECE7DE;--muted:#9FAAB0;--line:#2A3B45;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#121D24;--surface:#18262F;--fg:#ECE7DE;--muted:#9FAAB0;--line:#2A3B45;color-scheme:dark}
+*{box-sizing:border-box}
+html.is-loading{overflow:hidden}
+body{background:var(--bg);color:var(--fg);font:16px/1.6 var(--f-body)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--surface)}
+.wrap{max-width:1200px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+
+/* логотип */
+.arka{display:block;width:100%;height:auto;overflow:visible;--arka-ink:currentColor}
+.arka .ink path{stroke:var(--arka-ink)}
+.arka .one,.arka .lt{fill:var(--arka-ink)}
+.arka .slogan{fill:var(--arka-ink);font-family:var(--f-body)}
+.arka .glint{stroke:var(--arka-glow,#fff)}
+.arka .spark{fill:var(--arka-glow,#fff)}
+.arka .curtain,.arka .hole,.arka--compact .slogan,.arka--compact .lt-d1,.arka--compact .lt-d2,.arka--compact .lt-d3,.arka--mark .word,.arka--mark .slogan{display:none}
+
+/* лоадер: в цвете фона сайта, чтобы при пролёте не было скачка яркости */
+.loader{position:fixed;inset:0;z-index:100;display:grid;place-items:center;align-content:center;gap:24px;background:var(--bg);color:var(--fg);--arka-glow:var(--brass);overflow:hidden}
+.loader.is-cut{background:transparent}
+.arka-skip .loader{display:none}
+.loader .arka .curtain,.loader .arka .hole{display:block;fill:var(--bg)}
+.loader [data-arka-loader]{width:clamp(120px,18vw,180px)}
+.loader .count{position:relative;z-index:1;font:500 12px/1 var(--f-body);letter-spacing:.14em;text-transform:uppercase;opacity:.7;font-variant-numeric:tabular-nums}
+
+/* шапка */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--surface);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;gap:28px;padding-block:12px}
+.brand{display:block;width:46px;color:var(--fg);--arka-glow:var(--brass);border-radius:6px;outline-offset:6px}
+.brand:focus-visible{outline:2px solid var(--brass)}
+.nav{display:flex;gap:24px;margin-left:auto;font-size:15px}
+.nav a{color:var(--muted);text-decoration:none}
+.nav a:hover{color:var(--fg)}
+.cta{font:500 14px/1 var(--f-body);padding:12px 18px;border-radius:999px;background:var(--navy);color:var(--cream);text-decoration:none}
+@media (max-width:760px){.nav{display:none}.cta{margin-left:auto}.brand{width:40px}}
+
+/* место под контент лендинга */
+.hero{padding-block:clamp(48px,10vw,120px);display:grid;gap:20px}
+.hero h1{font:800 clamp(34px,6vw,64px)/1.08 var(--f-display);margin:0;text-wrap:balance;max-width:16ch}
+.hero p{margin:0;color:var(--muted);font-size:18px;max-width:52ch}
+.replay{justify-self:start;display:inline-flex;align-items:center;gap:10px;font:500 15px/1 var(--f-body);padding:13px 20px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--fg);cursor:pointer}
+.replay::before{content:"";width:0;height:0;border-left:8px solid var(--brass);border-top:5px solid transparent;border-bottom:5px solid transparent}
+.replay:hover{border-color:var(--brass)}
+.replay:focus-visible{outline:2px solid var(--brass);outline-offset:3px}
+</style>
+
+<div class="loader" id="loader" role="status" aria-label="Загрузка">
+  <div data-arka-loader></div>
+  <div class="count"><span id="arkaCount">0</span> / 123 м²</div>
+</div>
+
+<header class="top"><div class="wrap">
+  <a class="brand" id="brand" href="#" aria-label="АРКА 123, на главную"></a>
+  <nav class="nav"><a href="#">О пространстве</a><a href="#">Зал</a><a href="#">Тарифы</a><a href="#">Галерея</a><a href="#">Отзывы</a></nav>
+  <a class="cta" href="#">Забронировать</a>
+</div></header>
+
+<main class="wrap">
+  <section class="hero" id="hero">
+    <h1>Встречаемся напротив Библиотеки</h1>
+    <p>Зал 123 м² для мастер-классов и семинаров с арочными окнами 4 × 3,5 м. Минск, ул. Мстиславца, 10.</p>
+    <button class="replay" id="replay" type="button">Посмотреть заставку ещё раз</button>
+  </section>
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script>
+/* АРКА 123: лоадер и ховер логотипа. Нужен GSAP 3 (window.gsap). */
+(function () {
+  const TEMPLATE = `<svg class="arka" viewBox="210 190 1350 495" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="АРКА 123. Встречаемся напротив Библиотеки.">
+<defs>
+<clipPath id="__ID__-glass"><path d="M340.25 977V596A284.5 284.5 0 0 1 909.25 596V977Z"/></clipPath>
+<clipPath id="__ID__-word"><rect x="100" y="180" width="2000" height="380"/></clipPath>
+<linearGradient id="__ID__-light" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--arka-glow,#fff)" stop-opacity="0"/><stop offset="1" stop-color="var(--arka-glow,#fff)" stop-opacity=".22"/></linearGradient>
+<linearGradient id="__ID__-band" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="var(--arka-glow,#fff)" stop-opacity="0"/><stop offset=".5" stop-color="var(--arka-glow,#fff)" stop-opacity=".55"/><stop offset="1" stop-color="var(--arka-glow,#fff)" stop-opacity="0"/></linearGradient>
+</defs>
+<g class="mark" transform="translate(57.8 51) scale(0.6)">
+<path class="curtain" fill-rule="evenodd" d="M-20000 -20000H21000V21000H-20000ZM340.25 977V596A284.5 284.5 0 0 1 909.25 596V977Z"/>
+<path class="hole" d="M340.25 977V596A284.5 284.5 0 0 1 909.25 596V977Z"/>
+<g clip-path="url(#__ID__-glass)">
+<rect class="light" x="330" y="280" width="590" height="700" fill="url(#__ID__-light)"/>
+<rect class="band" x="-260" y="200" width="200" height="900" fill="url(#__ID__-band)" transform="skewX(-18)"/>
+</g>
+<g class="ink" fill="none" stroke-linejoin="miter" stroke-miterlimit="10">
+<g class="frame"><path class="floor" d="M287 1002H963" stroke-width="50"/>
+<path class="arch arch-l" d="M313.5 1002V596A311.25 311.25 0 0 1 630.18 284.8" stroke-width="53"/>
+<path class="arch arch-r" d="M936 1002V596A311.25 311.25 0 0 0 619.32 284.8" stroke-width="53"/></g>
+<path class="glint" d="M313.5 1002V596A311.25 311.25 0 0 1 936 596V1002" stroke-width="53"/>
+<polygon class="digit one" points="427,562 493,562 493,1002 439,1002 439,622 371,622" stroke="none"/>
+<path class="digit two" d="M541.75 662V647.5A62.75 62.75 0 1 1 654.9 684.8L539.5 838.5V873.5H668" stroke-width="53.5"/>
+<path class="digit three" d="M703 585H858L741 728M748.4 721.8A79 79 0 1 1 699 795" stroke-width="53.5"/>
+<circle class="spark" cx="624.75" cy="284.75" r="60" stroke="none"/>
+</g>
+</g>
+<g class="word" clip-path="url(#__ID__-word)" transform="translate(606.5 243.4) scale(0.4634)"><path class="lt lt-a1" d="M225.5 503.8L238.5 474.0L300.0 474.0L361.6 474.0L367.0 486.8C370.0 493.8 375.8 507.1 380.0 516.5L387.6 533.5L424.3 533.8C448.9 533.9 461.0 533.7 461.0 533.0C461.0 531.9 456.8 521.5 450.7 507.5C445.2 494.7 425.3 448.7 419.0 434.0C415.8 426.6 411.3 416.2 409.0 411.0C406.7 405.8 403.8 399.0 402.5 396.0C401.3 393.0 396.3 381.5 391.5 370.5C386.7 359.5 378.6 340.8 373.5 329.0C368.4 317.2 362.3 303.2 360.0 298.0C357.7 292.8 353.9 284.0 351.6 278.5C349.2 273.0 343.8 260.5 339.4 250.8L331.6 233.0L299.9 233.0L268.3 233.0L262.7 245.3C259.6 252.0 255.6 261.1 253.7 265.5C249.4 275.4 238.1 301.3 230.7 318.0C227.7 324.9 221.5 339.1 217.0 349.5C212.5 359.9 204.8 377.5 200.0 388.5C195.2 399.5 188.6 414.3 185.5 421.4C182.4 428.5 175.2 445.2 169.5 458.4C146.7 511.7 138.9 529.6 138.0 531.2C137.4 532.2 137.0 533.2 137.0 533.5C137.0 533.8 154.0 533.9 174.7 533.8L212.5 533.5L225.5 503.8ZM264.2 418.2C260.2 417.8 259.9 419.3 269.3 396.5C273.1 387.1 278.2 374.8 280.6 369.0C296.2 330.8 298.9 324.5 299.7 324.3C300.3 324.1 301.6 326.3 302.8 329.2C303.9 332.1 309.9 346.6 316.0 361.5C337.5 413.5 339.0 417.3 338.4 417.9C337.8 418.5 269.7 418.8 264.2 418.2Z"/><path class="lt lt-r" d="M541.2 486.2L541.5 438.5L577.0 438.4C614.5 438.2 623.0 437.4 638.5 432.9C666.0 424.7 688.0 406.7 700.4 382.2C707.4 368.3 711.6 345.5 710.6 327.5C708.9 299.5 701.0 279.1 685.6 263.2C671.7 248.7 655.9 240.2 634.0 235.5C622.2 233.0 587.2 231.9 528.0 232.2L473.5 232.5L473.6 235.8C473.6 237.5 473.7 305.4 473.8 386.5L474.0 534.0L507.5 534.0L541.0 534.0L541.2 486.2ZM541.2 334.8L541.5 287.5L572.5 287.5C602.1 287.5 603.8 287.6 611.0 289.8C621.1 293.0 625.9 295.9 631.9 302.7C644.0 316.2 646.3 338.8 637.5 356.6C632.8 366.2 624.9 373.6 614.3 378.1L606.5 381.5L573.7 381.8L541.0 382.1L541.2 334.8Z"/><path class="lt lt-ka" d="M799.2 468.8L799.5 403.6L813.5 421.0C821.2 430.5 829.3 440.6 831.5 443.4C836.9 450.3 855.4 473.5 859.4 478.5C861.2 480.7 868.3 489.5 875.1 498.0C882.0 506.5 891.3 518.1 895.9 523.8L904.1 534.0L978.8 534.0L1053.5 534.0L1064.7 508.2C1070.9 494.0 1076.7 480.5 1077.6 478.2L1079.3 474.0L1140.3 474.2L1201.4 474.5L1206.8 487.0C1209.8 493.9 1215.5 507.1 1219.6 516.5L1226.9 533.5L1264.0 533.8L1301.1 534.0L1300.4 531.8C1300.0 530.5 1298.6 527.0 1297.3 524.0C1295.9 521.0 1287.5 501.4 1278.5 480.5C1269.6 459.6 1258.1 433.1 1253.0 421.5C1247.9 409.9 1242.1 396.4 1240.0 391.5C1237.9 386.6 1233.6 376.4 1230.3 369.0C1218.1 341.6 1207.1 316.4 1205.2 311.5C1204.1 308.8 1201.3 302.4 1199.0 297.5C1196.7 292.6 1192.8 283.8 1190.5 278.0C1188.1 272.2 1182.8 259.9 1178.6 250.5L1171.1 233.5L1140.3 233.2L1109.5 233.0L1099.1 257.2C1093.3 270.6 1085.6 288.5 1081.9 297.0C1078.2 305.5 1071.4 321.5 1066.7 332.5C1062.0 343.5 1052.9 364.6 1046.5 379.5C1040.0 394.4 1033.0 410.8 1030.8 416.0C1024.7 430.6 1006.7 472.4 1002.2 482.5C1000.0 487.4 995.6 497.6 992.5 505.0C989.3 512.4 985.9 520.2 984.8 522.3L982.9 526.1L966.7 505.8C957.8 494.6 940.8 473.4 929.0 458.6C917.2 443.8 905.5 429.2 903.0 426.0C900.5 422.9 889.8 409.6 879.2 396.4C868.7 383.3 860.0 372.2 860.0 371.9C860.0 371.5 865.1 365.7 871.3 358.9C877.5 352.1 890.0 338.2 899.0 328.0C908.1 317.8 924.3 299.8 935.0 288.0C961.9 258.2 982.4 235.1 982.8 233.9C983.0 233.4 967.9 233.0 943.8 233.0L904.5 233.1L891.4 247.8C858.9 284.2 831.2 315.1 825.0 322.0C821.3 326.1 814.0 334.1 808.9 339.8L799.5 350.2L799.2 291.6L799.0 233.0L765.0 233.0L731.0 233.0L731.0 383.5L731.0 534.0L765.0 534.0L799.0 534.0L799.2 468.8ZM1106.8 418.3C1104.1 418.1 1102.0 417.6 1102.0 417.2C1102.1 416.8 1103.5 413.0 1105.3 408.7C1107.1 404.5 1115.5 383.7 1124.0 362.5C1132.5 341.3 1139.7 324.0 1140.1 324.0C1140.8 324.0 1145.9 336.1 1163.8 380.7L1178.8 417.8L1174.6 418.3C1170.2 418.9 1114.5 418.9 1106.8 418.3Z"/><path class="lt lt-d1" d="M1504.0 383.0L1504.0 231.9L1477.8 232.2L1451.5 232.5L1436.0 239.8C1427.5 243.8 1416.7 248.9 1412.0 251.1C1407.3 253.3 1397.9 257.7 1391.0 260.9L1378.5 266.6L1377.9 272.1C1377.3 278.0 1377.6 323.0 1378.3 323.7C1378.6 323.9 1383.2 322.2 1388.6 320.0C1416.5 308.2 1434.2 301.0 1434.9 301.0C1435.4 301.0 1436.0 302.0 1436.4 303.2C1436.7 304.5 1437.0 356.9 1437.0 419.8L1437.0 534.0L1470.5 534.0L1504.0 534.0L1504.0 383.0Z"/><path class="lt lt-d2" d="M1755.8 507.1C1755.7 492.3 1755.1 479.8 1754.7 479.4C1754.3 478.9 1735.1 478.7 1712.2 478.8C1689.3 479.0 1662.2 478.8 1652.1 478.4C1634.9 477.8 1633.8 477.6 1635.7 476.1C1640.5 472.3 1701.3 417.8 1709.4 410.0C1735.1 385.4 1748.4 366.0 1754.3 344.6C1757.5 332.9 1757.5 309.0 1754.2 297.7C1745.6 267.5 1723.5 244.1 1692.8 232.6C1677.6 227.0 1669.8 225.7 1649.5 225.6C1629.2 225.5 1619.6 227.2 1604.5 233.3C1575.1 245.3 1551.7 270.7 1544.1 299.0C1541.3 309.3 1539.0 323.2 1539.0 329.6L1539.0 335.0L1570.5 335.2C1587.8 335.3 1602.8 335.4 1603.8 335.4C1605.3 335.5 1605.6 334.2 1606.1 326.0C1606.8 314.1 1608.9 307.1 1613.8 299.5C1620.9 288.6 1631.3 283.0 1646.0 282.3C1671.9 280.9 1688.1 294.2 1689.7 318.0C1690.6 331.3 1686.2 342.9 1674.5 358.1C1664.7 370.8 1652.3 382.5 1585.0 443.0C1567.7 458.6 1550.2 474.3 1546.2 478.1L1539.0 484.8L1539.0 509.4L1539.0 534.0L1647.6 534.0L1756.2 534.0L1755.8 507.1Z"/><path class="lt lt-d3" d="M1926.5 541.1C1957.2 535.6 1983.6 521.9 1999.9 502.9C2016.2 483.9 2022.7 465.1 2021.7 439.5C2020.8 415.2 2013.9 398.9 1998.0 383.0C1982.8 367.8 1960.0 357.6 1934.7 354.6L1924.8 353.5L1959.4 318.6L1994.0 283.8L1994.0 257.9L1994.0 232.0L1892.5 232.0L1791.0 232.0L1791.0 261.0L1791.0 290.0L1849.7 290.0L1908.5 290.0L1872.7 325.8C1853.1 345.4 1837.0 362.1 1837.0 362.9C1837.0 363.6 1839.9 370.4 1843.4 377.9C1846.9 385.4 1850.7 393.8 1851.9 396.5C1856.1 406.2 1855.8 406.0 1864.1 403.8C1888.5 397.7 1917.9 400.4 1933.3 410.4C1939.9 414.6 1946.6 421.9 1949.3 427.8C1951.2 431.8 1951.5 434.3 1951.5 444.0C1951.5 455.0 1951.3 455.8 1948.2 462.2C1939.6 479.7 1920.6 489.0 1893.5 489.0C1879.5 489.0 1871.5 487.4 1861.3 482.5C1850.3 477.1 1842.3 466.9 1839.5 454.5L1838.3 449.5L1805.7 449.2L1773.0 449.0L1773.0 455.6C1773.0 467.7 1778.6 484.7 1786.6 497.1C1791.7 504.8 1803.7 516.9 1811.8 522.4C1828.0 533.3 1848.6 539.9 1877.0 543.4C1885.9 544.5 1915.0 543.1 1926.5 541.1Z"/></g>
+<g class="slogan"><text x="675" y="580" font-size="67" textLength="815" lengthAdjust="spacingAndGlyphs">Встречаемся напротив</text><text x="675" y="657" font-size="67">Библиотеки.</text></g>
+</svg>`;
+  const MARK_VIEWBOX = '214 194 428 488';
+  const reduce = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let uid = 0;
+
+  function mount(host, { compact = false, mark = false } = {}) {
+    const id = 'arka' + (++uid);
+    host.insertAdjacentHTML('beforeend', TEMPLATE.replaceAll('__ID__', id));
+    const svg = host.lastElementChild;
+    // В шапке «123» уже есть в знаке, поэтому надпись сокращается до «АРКА»
+    if (compact) { svg.classList.add('arka--compact'); svg.setAttribute('viewBox', '210 190 1010 495'); }
+    if (mark) { svg.setAttribute('viewBox', MARK_VIEWBOX); svg.classList.add('arka--mark'); }
+    const q = s => svg.querySelector(s), qa = s => [...svg.querySelectorAll(s)];
+    const el = {
+      floor: q('.floor'), frame: q('.frame'), arch: qa('.arch'), glint: q('.glint'), digits: qa('.digit'), one: q('.one'),
+      strokes: [q('.two'), q('.three')], spark: q('.spark'), light: q('.light'), band: q('.band'),
+      letters: qa(compact ? '.lt-a1, .lt-r, .lt-ka' : '.lt'), hole: q('.hole')
+    };
+    [...el.arch, ...el.strokes].forEach(p => { p.dataset.len = p.getTotalLength(); p.style.strokeDasharray = p.dataset.len; });
+    const G = el.glint.getTotalLength();
+    gsap.set(el.glint, { strokeDasharray: `140 ${G + 200}`, strokeDashoffset: 140, opacity: 0 });
+    gsap.set(el.spark, { opacity: 0 });
+
+    // Сборка знака, 0,55 с: пол, две опоры смыкаются в арку, «1» растёт колонной, «2» и «3» пишутся
+    function intro() {
+      if (reduce()) return gsap.timeline();
+      gsap.set(el.floor, { scaleX: 0, transformOrigin: '50% 50%' });
+      [...el.arch, ...el.strokes].forEach(p => gsap.set(p, { strokeDashoffset: p.dataset.len }));
+      gsap.set(el.one, { scaleY: 0, svgOrigin: '466 1002' });
+      gsap.set(el.light, { opacity: 0 });
+      return gsap.timeline()
+        .to(el.floor, { scaleX: 1, duration: .2, ease: 'power2.out' }, 0)
+        .to(el.arch, { strokeDashoffset: 0, duration: .4, ease: 'power2.inOut' }, .04)
+        .to(el.one, { scaleY: 1, duration: .25, ease: 'back.out(1.6)' }, .15)
+        .to(el.strokes, { strokeDashoffset: 0, duration: .25, ease: 'power2.out', stagger: .06 }, .2)
+        .to(el.light, { opacity: 1, duration: .25 }, .3)
+        .fromTo(el.spark, { opacity: .9, scale: .2, svgOrigin: '624.75 284.75' }, { opacity: 0, scale: 1.8, duration: .25, ease: 'power2.out' }, .4);
+    }
+
+    // Ожидание на медленной связи: контур арки мягко пульсирует, пока не придёт window.onload
+    function pulse() {
+      if (reduce()) return gsap.timeline();
+      return gsap.timeline({ repeat: -1, yoyo: true })
+        .to(el.frame, { opacity: .4, duration: .6, ease: 'sine.inOut' }, 0)
+        .to(el.light, { opacity: .35, duration: .6, ease: 'sine.inOut' }, 0);
+    }
+
+    // Пролёт сквозь арку за 0,7 с: контур сразу растворяется, проём мягко приближается, оверлей тает
+    function exit(overlay, reveal) {
+      const done = () => overlay.remove();
+      if (reduce()) return gsap.to(overlay, { opacity: 0, duration: .3, onComplete: done });
+      const vb = svg.viewBox.baseVal, r = svg.getBoundingClientRect();
+      const ox = (57.8 + 624.75 * .6 - vb.x) / vb.width, oy = (51 + 760 * .6 - vb.y) / vb.height;
+      overlay.classList.add('is-cut');
+      gsap.killTweensOf([el.light, el.frame]);
+      gsap.set(el.light, { opacity: 0 });
+      const tl = gsap.timeline({ onComplete: done })
+        .to([...el.digits, el.light], { opacity: 0, duration: .2, ease: 'sine.in' }, 0)
+        .to(el.hole, { opacity: 0, duration: .25, ease: 'sine.in' }, 0)
+        .to(svg, {
+          scale: 6, x: innerWidth / 2 - (r.left + r.width * ox), y: innerHeight / 2 - (r.top + r.height * oy),
+          transformOrigin: `${ox * 100}% ${oy * 100}%`, duration: .7, ease: 'power2.inOut'
+        }, 0)
+        .to(el.frame, { opacity: 0, duration: .22, ease: 'sine.out' }, 0)
+        .to(overlay, { opacity: 0, duration: .45, ease: 'sine.inOut' }, .2);
+      if (reveal) tl.from(reveal, { opacity: 0, y: 10, duration: .5, ease: 'sine.out', clearProps: 'all' }, .2);
+      return tl;
+    }
+
+    // Ховер, ~0,9 с: блик по стеклу и по арке, цифры и буквы по очереди подпрыгивают
+    let hoverTl = null;
+    function hover() {
+      if (reduce() || (hoverTl && hoverTl.isActive())) return;
+      hoverTl = gsap.timeline()
+        .set(el.glint, { opacity: 1, strokeDashoffset: 140 }, 0)
+        .to(el.glint, { strokeDashoffset: -G, duration: .9, ease: 'power1.inOut' }, 0)
+        .set(el.glint, { opacity: 0 })
+        .fromTo(el.band, { x: 0 }, { x: 1500, duration: .9, ease: 'power2.inOut' }, 0)
+        .to(el.digits, { y: -34, duration: .2, ease: 'power2.out', stagger: .06, yoyo: true, repeat: 1 }, .1)
+        .to(el.letters, { y: -26, duration: .18, ease: 'power2.out', stagger: .04, yoyo: true, repeat: 1 }, .2);
+    }
+    function bindHover(target = svg) {
+      target.addEventListener('mouseenter', hover);
+      target.addEventListener('focus', hover);
+    }
+
+    return { svg, intro, pulse, exit, hover, bindHover };
+  }
+
+  // Лоадер: сборка стартует сразу; пролёт начинается, когда прошло 600 мс и сработал window.onload.
+  // Быстрая связь: 0,6 с сборки + 0,6 с пролёта. Медленная: арка пульсирует, пока страница догружается.
+  const minTimer = ms => new Promise(r => setTimeout(r, ms));
+  const pageLoaded = () => new Promise(r => document.readyState === 'complete' ? r() : addEventListener('load', r, { once: true }));
+
+  // Лоадер показывается один раз за сессию. Флаг ставится в <head> заранее (см. skipLoader), чтобы
+  // при перезагрузке оверлей не мелькнул ни на кадр.
+  const VISITED = 'arka_visited';
+  function skipLoader() {
+    try { return sessionStorage.getItem(VISITED) === '1' && location.hash !== '#intro'; } catch (e) { return false; }
+  }
+
+  function runLoader(overlay, { counter, reveal, minTime = 600, force = false } = {}) {
+    if (force) document.documentElement.classList.remove('arka-skip');
+    else if (document.documentElement.classList.contains('arka-skip') || skipLoader()) { overlay.remove(); return Promise.resolve(); }
+    try { sessionStorage.setItem(VISITED, '1'); } catch (e) {}
+    const logo = mount(overlay.querySelector('[data-arka-loader]'), { mark: true });
+    document.documentElement.classList.add('is-loading');
+    if (counter) { const n = { v: 0 }; gsap.to(n, { v: 123, duration: .5, ease: 'power2.out', onUpdate: () => counter.textContent = Math.round(n.v) }); }
+    let waiting = null;
+    logo.intro().then(() => { waiting = logo.pulse(); });
+    return Promise.all([minTimer(minTime), pageLoaded()]).then(() => {
+      if (waiting) waiting.kill();
+      gsap.set(overlay.querySelector('.frame'), { opacity: 1 });
+      if (counter) gsap.to(counter.parentNode, { opacity: 0, duration: .15 });
+      document.documentElement.classList.remove('is-loading');
+      return logo.exit(overlay, reveal);
+    });
+  }
+
+  window.ArkaLogo = { mount, runLoader };
+})();
+
+</script>
+<script>
+(function () {
+  const loader = document.getElementById('loader');
+  if (!window.gsap) { loader.remove(); document.getElementById('replay').hidden = true; return; }
+  const template = loader.cloneNode(true);
+  const play = (force) => {
+    const el = document.getElementById('loader') || document.body.prepend(template.cloneNode(true)) || document.getElementById('loader');
+    return ArkaLogo.runLoader(el, { counter: el.querySelector('#arkaCount'), reveal: document.querySelector('.hero'), force });
+  };
+  ArkaLogo.mount(document.getElementById('brand'), { mark: true }).bindHover(document.getElementById('brand'));
+  play(false);
+  let busy = false;
+  document.getElementById('replay').addEventListener('click', () => {
+    if (busy) return; busy = true;
+    scrollTo(0, 0);
+    play(true).then(() => { busy = false; });
+  });
+})();
+</script>
+
+</body></html>

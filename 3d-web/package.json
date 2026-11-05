@@ -1,0 +1,7 @@
+{
+  "name": "arka123-3d",
+  "private": true,
+  "description": "3D-режим сайта АРКА 123: прогулка по залу на three.js",
+  "scripts": { "build": "sh build3d.sh" },
+  "dependencies": { "esbuild": "0.24.0", "three": "0.170.0" }
+}
