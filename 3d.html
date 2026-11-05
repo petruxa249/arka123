@@ -163,7 +163,7 @@
   var hid=false;function hideHint(){if(hid)return;hid=true;hint.hidden=true}
   function boot(){
     root.dataset.state='load';msg.textContent='Загружаем модель зала, около 160 КБ';goBtn.hidden=true;
-    var s=document.createElement('script');s.src='arka3d.js?v=b4b3e036';s.async=true;
+    var s=document.createElement('script');s.src='arka3d.js?v=8e67a84f';s.async=true;
     s.onerror=function(){fail()};
     s.onload=function(){
       try{api=window.Arka3D.start(root,{onChange:sync,onInteract:hideHint,init:{layout:Q.get('r'),view:Q.get('v'),mode:Q.get('t'),people:Q.get('p')!=='0',dims:Q.get('d')==='1'}})}catch(e){return fail()}

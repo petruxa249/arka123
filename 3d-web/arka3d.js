@@ -200,7 +200,7 @@ export function start(root, opts = {}) {
   renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1;
   renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFSoftShadowMap; renderer.shadowMap.autoUpdate = false;  // тени пересчитываются только когда меняется сцена, не при ходьбе
   const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(62, 1, .05, 2600); camera.rotation.order = 'YXZ';
+  const camera = new THREE.PerspectiveCamera(62, 1, .12, 2400); camera.rotation.order = 'YXZ';
   const pmrem = new THREE.PMREMGenerator(renderer);
   scene.environment = pmrem.fromScene(new RoomEnvironment(), .04).texture; scene.environmentIntensity = .5;
   scene.fog = new THREE.Fog(0xe6ecef, 160, 1300);
@@ -212,6 +212,7 @@ export function start(root, opts = {}) {
   const mFrame = new THREE.MeshStandardMaterial({ color: '#15181b', roughness: .38, metalness: .4 });
   const mGlass = new THREE.MeshStandardMaterial({ color: '#cfe0e6', roughness: .03, metalness: .1, transparent: true, opacity: .1, depthWrite: false, envMapIntensity: 1.4 });
   const mLed = new THREE.MeshStandardMaterial({ color: '#ffffff', emissive: '#fff4e3', emissiveIntensity: .8 });
+  const mSill = new THREE.MeshStandardMaterial({ color: '#dcd6cb', roughness: .55, polygonOffset: true, polygonOffsetFactor: -1, polygonOffsetUnits: -1 });
   const mNavy = new THREE.MeshStandardMaterial({ color: '#213641', roughness: .75 });
   const mGold = new THREE.MeshStandardMaterial({ color: '#c9a26a', roughness: .3, metalness: .9 });
   const mFloor = new THREE.MeshStandardMaterial({ map: parquet(), roughness: .34, envMapIntensity: .8 });
@@ -247,7 +248,8 @@ export function start(root, opts = {}) {
     add(new THREE.BoxGeometry(WW - .1, .08, .1), mFrame, cx, zsp, -.26);
     for (const dx of [-WW / 6, WW / 6]) { const top = archTop(dx, .05); add(new THREE.BoxGeometry(.07, top - SILL, .1), mFrame, cx + dx, (top + SILL) / 2, -.26); }
     const gl = add(new THREE.ShapeGeometry(new THREE.Shape(archPts(cx, .06))), mGlass, 0, 0, -.25, room, false); gl.receiveShadow = false; gl.renderOrder = 2;
-    add(new THREE.BoxGeometry(WW + .3, .05, .36), mAnth, cx, SILL - .025, .0);
+    // подоконник: светлый камень, верх на 6 см выше откоса и не вровень ни с одной плоскостью (иначе мерцает)
+    add(new THREE.BoxGeometry(WW + .3, .08, .36), mSill, cx, SILL - .02 + .04, .02);
     add(new THREE.BoxGeometry(1.7, .55, .09), mAnth, cx, .42, .07);
   });
   /* экранная стена: тёмно-синяя панель с золотой аркой логотипа */
@@ -335,7 +337,7 @@ export function start(root, opts = {}) {
   const sun = new THREE.DirectionalLight('#fff1dc', 2.6); sun.castShadow = true;
   sun.shadow.mapSize.set(MOBILE ? 1024 : 2048, MOBILE ? 1024 : 2048);
   Object.assign(sun.shadow.camera, { left: -11, right: 11, top: 11, bottom: -11, near: 1, far: 90 });
-  sun.shadow.bias = -.0004; sun.shadow.normalBias = .03;
+  sun.shadow.bias = -.0006; sun.shadow.normalBias = .025;
   sun.target.position.set(W / 2, 0, D / 2); scene.add(sun, sun.target);
   const lamps = [[3.2, 3.0], [11, 3.0], [3.2, 6.4], [11, 6.4]].map(([x, z]) => { const l = new THREE.PointLight('#ffd6a3', 0, 14, 1.6); l.position.set(x, H - .4, z); scene.add(l); return l; });
   const MODES = {
